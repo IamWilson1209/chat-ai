@@ -26,3 +26,14 @@ Programming Language: TypeScript
 1. Realtime chat
 2. Group chat
 
+### Knowledge
+
+1. Setup Convex
+   (1) Use {defineSchema, defineTable} to create the database.
+   (2) Setup HTTP action(Docs: https://docs.convex.dev/functions/http-actions): Setup functions to take in Request and return Response following the Fetch API.
+2. Setup Clerk
+   (1) Set up JWT templates and define the authorized third-party API.
+   (2) Add a Webhook endpoint for the project.
+3. Setup Webhook
+   (1) Docs: https://clerk.com/docs/webhooks/sync-data
+   (2) Setup environment variables: CLERK_APP_DOMAIN, CLERK_WEBHOOK_SECRET
