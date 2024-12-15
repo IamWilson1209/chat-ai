@@ -28,8 +28,8 @@ Programming Language: TypeScript
 
 ### Knowledge
 
-1. Setup Convex
-   (1) Use {defineSchema, defineTable} to create the database.
+1. Setup Convex<br>
+   (1) Use {defineSchema, defineTable} to create the database.<br>
    (2) Setup HTTP action(Docs: https://docs.convex.dev/functions/http-actions): Setup functions to take in Request and return Response following the Fetch API.
 2. Setup Clerk
    (1) Set up JWT templates and define the authorized third-party API.
