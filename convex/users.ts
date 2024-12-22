@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ConvexError, v } from "convex/values";
 import { internalMutation, query } from "./_generated/server";
 

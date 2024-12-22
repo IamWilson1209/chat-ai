@@ -67,8 +67,10 @@ export const getMyConversations = query({
 
     if (!user) throw new ConvexError('User not found');
 
+    /* fetch all conversations related to this user (including group) */
     const conversations = await ctx.db.query('conversations').collect();
 
+    /* filter conversations where this user is a participant and return them with additional details (user details, last message)*/
     const myConversations = conversations.filter((conversation) => {
       return conversation.participants.includes(user._id);
     });
@@ -77,6 +79,7 @@ export const getMyConversations = query({
       myConversations.map(async (conversation) => {
         let userDetails = {};
 
+        /* Not group, fetch the first one */
         if (!conversation.isGroup) {
           const otherUserId = conversation.participants.find(
             (id) => id !== user._id
@@ -95,7 +98,7 @@ export const getMyConversations = query({
           .order('desc')
           .take(1);
 
-        // return should be in this order, otherwise _id field will be overwritten
+        /* return should be in this order, otherwise conversion _id will overwrite user _id */
         return {
           ...userDetails,
           ...conversation,

@@ -1,6 +1,11 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
+/*
+  In convex, use defineSchema to define database schema,
+  and defineTable to define individual database tables.
+  https://docs.convex.dev/tutorial/
+*/
 export default defineSchema({
   users: defineTable({
     name: v.optional(v.string()),
@@ -22,6 +27,7 @@ export default defineSchema({
     conversation: v.id("conversations"),
     sender: v.string(),
     content: v.string(),
+    /* message can be text or image or video!! */
     messageType: v.union(v.literal("text"), v.literal("image"), v.literal("video")),
   }).index("by_conversation", ["conversation"]),
 });

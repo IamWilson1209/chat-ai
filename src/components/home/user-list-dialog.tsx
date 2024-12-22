@@ -68,6 +68,10 @@ const UserListDialog = () => {
         });
       }
 
+      /* 
+      Make sure next time user click the create group button
+      won't get previous state
+      */
       dialogCloseRef.current?.click();
       setSelectedUsers([]);
       setGroupName('');
@@ -150,6 +154,11 @@ const UserListDialog = () => {
             </Button>
           </>
         )}
+        {/* 
+            overflow-auto max-h-60: 
+            make the dialog contain scroll bar when
+            user list is over 60 px
+        */}
         <div className="flex flex-col gap-3 overflow-auto max-h-60">
           {users?.map((user) => (
             <div
