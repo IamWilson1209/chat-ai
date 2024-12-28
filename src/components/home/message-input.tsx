@@ -14,9 +14,6 @@ import MediaDropdown from './media-dropdown';
 const MessageInput = () => {
   const [msgText, setMsgText] = useState('');
   const { selectedConversation } = useConversationStore();
-  /*
-    Custome hook that make emoji container visible
-  */
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false);
 
@@ -41,18 +38,11 @@ const MessageInput = () => {
   return (
     <div className="bg-gray-primary p-2 flex gap-4 items-center">
       <div className="relative flex gap-2 ml-2">
-        {/* 
-          Custome hook that make emoji container visible
-        */}
+        {/* EMOJI PICKER WILL GO HERE */}
         <div ref={ref} onClick={() => setIsComponentVisible(true)}>
-          {/* Show Emoji picker if it is visible */}
           {isComponentVisible && (
             <EmojiPicker
               theme={Theme.DARK}
-              /*
-                make message emoji contains in message state, 
-                and show in the end of message.
-              */
               onEmojiClick={(emojiObject) => {
                 setMsgText((prev) => prev + emojiObject.emoji);
               }}

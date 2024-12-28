@@ -10,6 +10,10 @@ import ReactPlayer from 'react-player';
 import ChatAvatarActions from './chat-avatar-actions';
 import { Bot } from 'lucide-react';
 
+/* 
+Passing previous message to check the date time, 
+so it can build timestamp functionality 
+*/
 type ChatBubbleProps = {
   message: IMessage;
   me: any;
@@ -37,6 +41,7 @@ const ChatBubble = ({ me, message, previousMessage }: ChatBubbleProps) => {
   console.log(message.sender);
   const [open, setOpen] = useState(false);
 
+  /* text, image, video redering methods */
   const renderMessageContent = () => {
     switch (message.messageType) {
       case 'text':
@@ -52,9 +57,11 @@ const ChatBubble = ({ me, message, previousMessage }: ChatBubbleProps) => {
     }
   };
 
+  /* Message is not send from authUser: */
   if (!fromMe) {
     return (
       <>
+        {/* Use DateIndicator to render the timestamp of messages */}
         <DateIndicator message={message} previousMessage={previousMessage} />
         <div className="flex gap-1 w-2/3">
           <ChatBubbleAvatar
@@ -71,7 +78,9 @@ const ChatBubble = ({ me, message, previousMessage }: ChatBubbleProps) => {
               <Bot size={16} className="absolute bottom-[2px] left-2" />
             )}
             {<ChatAvatarActions message={message} me={me} />}
+            {/* This is where message truely show in the chat-bubble */}
             {renderMessageContent()}
+            {/* if an image is opened by user, open image dialog */}
             {open && (
               <ImageDialog
                 src={message.content}
@@ -85,17 +94,20 @@ const ChatBubble = ({ me, message, previousMessage }: ChatBubbleProps) => {
       </>
     );
   }
-
+  /* Message is send from authUser: */
   return (
     <>
+      {/* Use DateIndicator to render the timestamp of messages */}
       <DateIndicator message={message} previousMessage={previousMessage} />
-
       <div className="flex gap-1 w-2/3 ml-auto">
         <div
           className={`flex  z-20 max-w-fit px-2 pt-1 rounded-md shadow-md ml-auto relative ${bgClass}`}
         >
+          {/* Set the self indicator if the mwssage is send by authUser */}
           <SelfMessageIndicator />
+          {/* This is where message truely show in the chat-bubble */}
           {renderMessageContent()}
+          {/* if an image is opened by user, open image dialog */}
           {open && (
             <ImageDialog
               src={message.content}
@@ -173,6 +185,7 @@ const ImageDialog = ({
   );
 };
 
+/* If message seen, use indicator to tell the user */
 const MessageTime = ({ time, fromMe }: { time: string; fromMe: boolean }) => {
   return (
     <p className="text-[10px] mt-2 self-end flex gap-1 items-center">
@@ -189,6 +202,7 @@ const SelfMessageIndicator = () => (
   <div className="absolute bg-green-chat top-0 -right-[3px] w-3 h-3 rounded-br-full overflow-hidden" />
 );
 
+/* Check the link for the message and highlight it */
 const TextMessage = ({ message }: { message: IMessage }) => {
   const isLink = /^(ftp|http|https):\/\/[^ "]+$/.test(message.content); // Check if the content is a URL
 

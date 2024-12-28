@@ -25,6 +25,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.4.1",
+    "react-player": "^2.16.0",
     "svix": "^1.44.0",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
