@@ -10,10 +10,14 @@ import { useConvexAuth, useQuery } from 'convex/react';
 import { api } from '../../../convex/_generated/api';
 import { useEffect } from 'react';
 import { useConversationStore } from '@/store/chat-store';
+import ThemeSwitch from './theme-changer';
 
 const LeftPanel = () => {
   const { isAuthenticated, isLoading } = useConvexAuth();
-  /* use isAuthenticated ? undefined : "skip" to prevent server auth error */
+  /* 
+    1. useQuery to get the conversations from convex db
+    2. use isAuthenticated ? undefined : "skip" to prevent server auth error 
+  */
   const conversations = useQuery(
     api.conversations.getMyConversations,
     isAuthenticated ? undefined : 'skip'
@@ -22,19 +26,29 @@ const LeftPanel = () => {
   const { selectedConversation, setSelectedConversation } =
     useConversationStore();
 
+  /* 
+    if a user has been kicked out, using useEffect to update global state
+    to make sure that user is not allowed to seen the conversation
+  */
   useEffect(() => {
     const conversationIds = conversations?.map(
       (conversation) => conversation._id
     );
+    /* 
+      if the kicked user has global state that opening the conversation
+      make sure the global state is updated to null
+    */
     if (
       selectedConversation &&
       conversationIds &&
       !conversationIds.includes(selectedConversation._id)
     ) {
+      // global state is updated to null
       setSelectedConversation(null);
     }
   }, [conversations, selectedConversation, setSelectedConversation]);
 
+  /* This can be changed to loading skeleton */
   if (isLoading) return null;
 
   return (

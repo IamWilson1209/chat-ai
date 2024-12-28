@@ -12,7 +12,7 @@ const RightPanel = () => {
   const { selectedConversation, setSelectedConversation } =
     useConversationStore();
   const { isLoading } = useConvexAuth();
-
+  /* This can be changed to loading skeleton */
   if (isLoading) return null;
   if (!selectedConversation) return <ChatPlaceHolder />;
 

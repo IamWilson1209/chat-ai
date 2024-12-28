@@ -111,6 +111,7 @@ export const getMyConversations = query({
   },
 });
 
+/* kick user from convex database */
 export const kickUser = mutation({
   args: {
     conversationId: v.id('conversations'),
