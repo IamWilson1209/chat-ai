@@ -65,6 +65,7 @@ export const sendChatGPTMessage = mutation({
   args: {
     content: v.string(),
     conversation: v.id("conversations"),
+    /* message only can be text, image */
     messageType: v.union(v.literal("text"), v.literal("image")),
   },
   handler: async (ctx, args) => {

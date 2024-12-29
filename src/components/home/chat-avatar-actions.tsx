@@ -92,6 +92,10 @@ const ChatAvatarActions = ({ me, message }: ChatAvatarActionsProps) => {
       className="text-[11px] flex gap-4 justify-between font-bold cursor-pointer group"
       onClick={handleCreateConversation}
     >
+      {/* 
+        Only when member is in group, clickuser's name
+        will change to the responding chat, not in one-on-one chat
+       */}
       {isGroup && message.sender.name}
       {/* can't kick ai from group chat */}
       {!isMember && !fromAI && isGroup && (
