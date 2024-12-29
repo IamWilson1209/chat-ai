@@ -2,16 +2,36 @@ import { httpRouter } from "convex/server";
 import { httpAction } from "./_generated/server";
 import { internal } from "./_generated/api";
 
+/* 
+  This file is reference from:
+  https://docs.convex.dev/functions/http-actions
+  HTTP actions can manipulate the request and response directly, 
+  and interact with data in Convex indirectly by running 
+  queries, mutations, and actions.
+*/
+
 const http = httpRouter();
 
 http.route({
   path: "/clerk",
   method: "POST",
+  /*
+    Handler: function
+      1st argument: An ActionCtx object, 
+      which provides auth, storage, and scheduler, 
+      as well as runQuery, runMutation, runAction.
+      2nd argument: Contains the Request data
+  */
   handler: httpAction(async (ctx, req) => {
     const payloadString = await req.text();
     const headerPayload = req.headers;
 
     try {
+      /* 
+        Actions can call third party services to do things
+        They can interact with the database indirectly 
+        by calling queries and mutations.
+      */
       const result = await ctx.runAction(internal.clerk.fulfill, {
         payload: payloadString,
         headers: {
@@ -60,6 +80,8 @@ http.route({
   }),
 });
 
+/* 
+  To expose the HTTP Action, export an instance of HttpRouter 
+  from the convex/http.ts file. 
+*/
 export default http;
-
-// https://docs.convex.dev/functions/http-actions

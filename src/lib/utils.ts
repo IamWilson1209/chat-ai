@@ -87,6 +87,10 @@ export const getRelativeDateTime = (message: any, previousMessage: any) => {
   }
 };
 
+/* 
+  Use to generate randomID for zegocloud
+  Initialization the chat name for video call
+*/
 export function randomID(len: number) {
   let result = "";
   if (result) return result;
