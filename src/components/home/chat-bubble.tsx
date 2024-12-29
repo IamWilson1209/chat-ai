@@ -73,6 +73,10 @@ const ChatBubble = ({ me, message, previousMessage }: ChatBubbleProps) => {
           <div
             className={`flex flex-col z-20 max-w-fit px-2 pt-1 rounded-md shadow-md relative ${bgClass}`}
           >
+            {/* 
+              left-top corner will have a simple indicator if 
+              message is from other or openai
+            */}
             {!fromAI && <OtherMessageIndicator />}
             {fromAI && (
               <Bot size={16} className="absolute bottom-[2px] left-2" />

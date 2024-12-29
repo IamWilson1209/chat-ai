@@ -14,6 +14,7 @@ const ChatBubbleAvatar = ({
   message,
   fromAI,
 }: ChatBubbleAvatarProps) => {
+  /* Group and ai don't need online signal */
   if (!isGroup && !fromAI) return null;
 
   return (

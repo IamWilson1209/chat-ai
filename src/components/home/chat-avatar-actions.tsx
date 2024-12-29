@@ -93,7 +93,7 @@ const ChatAvatarActions = ({ me, message }: ChatAvatarActionsProps) => {
       onClick={handleCreateConversation}
     >
       {isGroup && message.sender.name}
-
+      {/* can't kick ai from group chat */}
       {!isMember && !fromAI && isGroup && (
         <Ban size={16} className="text-red-500" />
       )}
