@@ -2,11 +2,25 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 /*
-  In convex, use defineSchema to define database schema,
-  and defineTable to define individual database tables.
-  https://docs.convex.dev/tutorial/
+  Docs: https://docs.convex.dev/database/schemas
+  A schema is a description of
+  1. the tables in your Convex project
+  2. the type of documents within your tables
+
+  Schemas are pushed automatically in "npx convex dev"
 */
 export default defineSchema({
+  messages: defineTable({
+    conversation: v.id("conversations"),
+    sender: v.string(),
+    content: v.string(),
+    /* 
+      Fields that are a constant can be expressed with v.literal:
+      message can be text || image || video!! 
+    */
+    messageType: v.union(v.literal("text"), v.literal("image"), v.literal("video")),
+  }).index("by_conversation", ["conversation"]),
+
   users: defineTable({
     name: v.optional(v.string()),
     email: v.string(),
@@ -22,12 +36,4 @@ export default defineSchema({
     groupImage: v.optional(v.string()),
     admin: v.optional(v.id("users")),
   }),
-
-  messages: defineTable({
-    conversation: v.id("conversations"),
-    sender: v.string(),
-    content: v.string(),
-    /* message can be text or image or video!! */
-    messageType: v.union(v.literal("text"), v.literal("image"), v.literal("video")),
-  }).index("by_conversation", ["conversation"]),
 });
