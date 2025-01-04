@@ -19,7 +19,7 @@ const LeftPanel = () => {
     2. use isAuthenticated ? undefined : "skip" to prevent server auth error 
   */
   const conversations = useQuery(
-    api.conversations.getMyConversations,
+    api.functions.conversations.getUserConversations,
     isAuthenticated ? undefined : 'skip'
   );
 
@@ -55,9 +55,12 @@ const LeftPanel = () => {
     <div className="w-1/4 border-gray-600 border-r">
       <div className="sticky top-0 bg-left-panel z-10">
         {/* Header */}
-        <div className="flex justify-between bg-gray-primary p-3 items-center">
+        <div className="flex justify-between bg-white-primary">
           <UserButton />
-
+          <UserButton />
+          <UserButton />
+        </div>
+        <div className="flex justify-between bg-gray-primary p-3 items-center">
           <div className="flex items-center gap-3">
             {isAuthenticated && <UserListDialog />}
             <ThemeSwitch />

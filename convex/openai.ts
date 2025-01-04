@@ -28,7 +28,7 @@ export const chat = action({
 
     const messageContent = res.choices[0].message.content;
 
-    await ctx.runMutation(api.messages.sendChatGPTMessage, {
+    await ctx.runMutation(api.functions.messages.sendChatGPTMessage, {
       /* respond from chat-gpt */
       content: messageContent ?? "I'm sorry, I don't understand your question",
       conversation: args.conversation,
@@ -51,7 +51,7 @@ export const dall_e = action({
     });
 
     const imageUrl = res.data[0].url;
-    await ctx.runMutation(api.messages.sendChatGPTMessage, {
+    await ctx.runMutation(api.functions.messages.sendChatGPTMessage, {
       /* respond from dall-e */
       content: imageUrl ?? "/poopenai.png",
       conversation: args.conversation,

@@ -19,8 +19,12 @@ const ChatAvatarActions = ({ me, message }: ChatAvatarActionsProps) => {
   const isMember = selectedConversation?.participants.includes(
     message.sender._id
   );
-  const kickUser = useMutation(api.conversations.kickUser);
-  const createConversation = useMutation(api.conversations.createConversation);
+  const kickUser = useMutation(
+    api.functions.conversations.deleteUserFromConversation
+  );
+  const createConversation = useMutation(
+    api.functions.conversations.createConversation
+  );
   const fromAI = message.sender?.name === 'ChatGPT';
   const isGroup = selectedConversation?.isGroup;
 

@@ -36,6 +36,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          {/*
+            Setting in: Providers/convex-client-provider.tsx 
+            Docs: https://docs.convex.dev/quickstart/nextjs 
+          */}
           <ConvexClientProvider>
             <Toaster />
             {children}

@@ -53,7 +53,7 @@ http.route({
       */
       switch (changes.type) {
         case "user.created":
-          await ctx.runMutation(internal.users.createUser, {
+          await ctx.runMutation(internal.functions.users.createUser, {
             tokenIdentifier: `${process.env.CLERK_APP_DOMAIN}|${changes.data.id}`,
             email: changes.data.email_addresses[0]?.email_address,
             name: `${changes.data.first_name ?? "Guest"} ${changes.data.last_name ?? ""}`,
@@ -61,18 +61,18 @@ http.route({
           });
           break;
         case "user.updated":
-          await ctx.runMutation(internal.users.updateUser, {
+          await ctx.runMutation(internal.functions.users.updateUser, {
             tokenIdentifier: `${process.env.CLERK_APP_DOMAIN}|${changes.data.id}`,
             image: changes.data.image_url,
           });
           break;
         case "session.created":
-          await ctx.runMutation(internal.users.setUserOnline, {
+          await ctx.runMutation(internal.functions.users.setUserOnline, {
             tokenIdentifier: `${process.env.CLERK_APP_DOMAIN}|${changes.data.user_id}`,
           });
           break;
         case "session.ended":
-          await ctx.runMutation(internal.users.setUserOffline, {
+          await ctx.runMutation(internal.functions.users.setUserOffline, {
             tokenIdentifier: `${process.env.CLERK_APP_DOMAIN}|${changes.data.user_id}`,
           });
           break;

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ConvexError, v } from 'convex/values';
-import { mutation, query } from './_generated/server';
+import { v } from 'convex/values';
+import { mutation, query } from '../_generated/server';
 
 export const createConversation = mutation({
   args: {
@@ -12,14 +12,14 @@ export const createConversation = mutation({
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
-    if (!identity) throw new ConvexError('Unauthorized');
+    if (!identity) throw new Error('Unauthorized');
 
     const existingConversation = await ctx.db
       .query('conversations')
       .filter((q) =>
         /* 
           double check whether the participants name are already existed but reversed
-          e.g. wilson and christine
+          e.g. wilson & christine
           [wilson, christine]
           [christine, wilson] 
         */
@@ -52,44 +52,51 @@ export const createConversation = mutation({
   },
 });
 
-export const getMyConversations = query({
+export const getUserConversations = query({
   args: {},
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
-    if (!identity) throw new ConvexError('Unauthorized');
+    if (!identity) throw new Error('Unauthorized');
 
-    const user = await ctx.db
+    const authUser = await ctx.db
       .query('users')
       .withIndex('by_tokenIdentifier', (q) =>
         q.eq('tokenIdentifier', identity.tokenIdentifier)
       )
       .unique();
 
-    if (!user) throw new ConvexError('User not found');
+    if (!authUser) throw new Error('User not found');
 
-    /* fetch all conversations related to this user (including group) */
+    /* 
+      fetch all conversations related to this user (including group) 
+    */
     const conversations = await ctx.db.query('conversations').collect();
 
-    /* filter conversations where this user is a participant and return them with additional details (user details, last message)*/
-    const myConversations = conversations.filter((conversation) => {
-      return conversation.participants.includes(user._id);
+    /* 
+      filter all conversations where current user is a participant and 
+      return them with additional details (user details, last message)
+    */
+    const userConversations = conversations.filter((conversation) => {
+      return conversation.participants.includes(authUser._id);
     });
 
     const conversationsWithDetails = await Promise.all(
-      myConversations.map(async (conversation) => {
-        let userDetails = {};
+      userConversations.map(async (conversation) => {
+        let otherUserDetails = {};
 
-        /* Not group, fetch the first one */
+        /* 
+          If not a group chat, fetch the first one user's id
+        */
         if (!conversation.isGroup) {
           const otherUserId = conversation.participants.find(
-            (id) => id !== user._id
+            (id) => id !== authUser._id
           );
-          const userProfile = await ctx.db
+          const otherUserProfile = await ctx.db
             .query('users')
             .filter((q) => q.eq(q.field('_id'), otherUserId))
             .take(1);
 
-          userDetails = userProfile[0];
+          otherUserDetails = otherUserProfile[0];
         }
 
         const lastMessage = await ctx.db
@@ -98,9 +105,12 @@ export const getMyConversations = query({
           .order('desc')
           .take(1);
 
-        /* return should be in this order, otherwise conversion _id will overwrite user _id */
+        /* 
+          return should be in this order, 
+          otherwise conversion _id will overwrite user _id 
+        */
         return {
-          ...userDetails,
+          ...otherUserDetails,
           ...conversation,
           lastMessage: lastMessage[0] || null,
         };
@@ -111,22 +121,21 @@ export const getMyConversations = query({
   },
 });
 
-/* kick user from convex database */
-export const kickUser = mutation({
+export const deleteUserFromConversation = mutation({
   args: {
     conversationId: v.id('conversations'),
     userId: v.id('users'),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
-    if (!identity) throw new ConvexError('Unauthorized');
+    if (!identity) throw new Error('Unauthorized');
 
     const conversation = await ctx.db
       .query('conversations')
       .filter((q) => q.eq(q.field('_id'), args.conversationId))
       .unique();
 
-    if (!conversation) throw new ConvexError('Conversation not found');
+    if (!conversation) throw new Error('Conversation not found');
 
     await ctx.db.patch(args.conversationId, {
       participants: conversation.participants.filter(

@@ -14,11 +14,11 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as clerkAction from "../clerkAction.js";
-import type * as conversations from "../conversations.js";
+import type * as functions_conversations from "../functions/conversations.js";
+import type * as functions_messages from "../functions/messages.js";
+import type * as functions_users from "../functions/users.js";
 import type * as http from "../http.js";
-import type * as messages from "../messages.js";
 import type * as openai from "../openai.js";
-import type * as users from "../users.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -30,11 +30,11 @@ import type * as users from "../users.js";
  */
 declare const fullApi: ApiFromModules<{
   clerkAction: typeof clerkAction;
-  conversations: typeof conversations;
+  "functions/conversations": typeof functions_conversations;
+  "functions/messages": typeof functions_messages;
+  "functions/users": typeof functions_users;
   http: typeof http;
-  messages: typeof messages;
   openai: typeof openai;
-  users: typeof users;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,
