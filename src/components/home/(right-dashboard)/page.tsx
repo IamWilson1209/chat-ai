@@ -1,7 +1,7 @@
 'use client';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Video, X } from 'lucide-react';
-import MessageInput from '../message-input';
+import MessageInput from './_components/message-input';
 import MessageContainer from '../message-container';
 import ChatPlaceHolder from '@/components/home/chat-placeholder';
 import GroupMembersDialog from '../group-members-dialog';

@@ -1,6 +1,7 @@
-import { ConvexError, v } from "convex/values";
+import { v } from "convex/values";
 import { mutation, query } from "../_generated/server";
 import { api } from "../_generated/api";
+import { removeHttps } from "../../src/lib/remove-https";
 
 export const sendTextMessage = mutation({
   args: {
@@ -11,16 +12,18 @@ export const sendTextMessage = mutation({
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) {
-      throw new ConvexError("Not authenticated");
+      throw new Error("Not authenticated");
     }
+
+    const identityTokenIdentifier = removeHttps(identity.tokenIdentifier)
 
     const user = await ctx.db
       .query("users")
-      .withIndex("by_tokenIdentifier", (q) => q.eq("tokenIdentifier", identity.tokenIdentifier))
+      .withIndex("by_tokenIdentifier", (q) => q.eq("tokenIdentifier", identityTokenIdentifier))
       .unique();
 
     if (!user) {
-      throw new ConvexError("User not found");
+      throw new Error("User not found");
     }
 
     const conversation = await ctx.db
@@ -29,11 +32,11 @@ export const sendTextMessage = mutation({
       .first();
 
     if (!conversation) {
-      throw new ConvexError("Conversation not found");
+      throw new Error("Conversation not found");
     }
 
     if (!conversation.participants.includes(user._id)) {
-      throw new ConvexError("You are not part of this conversation");
+      throw new Error("You are not part of this conversation");
     }
 
     await ctx.db.insert("messages", {
@@ -130,7 +133,7 @@ export const sendImage = mutation({
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) {
-      throw new ConvexError("Unauthorized");
+      throw new Error("Unauthorized");
     }
 
     const content = (await ctx.storage.getUrl(args.imgId)) as string;
@@ -149,7 +152,7 @@ export const sendVideo = mutation({
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) {
-      throw new ConvexError("Unauthorized");
+      throw new Error("Unauthorized");
     }
 
     const content = (await ctx.storage.getUrl(args.videoId)) as string;
@@ -172,7 +175,7 @@ export const sendVideo = mutation({
 // 	handler: async (ctx, args) => {
 // 		const identity = await ctx.auth.getUserIdentity();
 // 		if (!identity) {
-// 			throw new ConvexError("Not authenticated");
+// 			throw new Error("Not authenticated");
 // 		}
 
 // 		const messages = await ctx.db

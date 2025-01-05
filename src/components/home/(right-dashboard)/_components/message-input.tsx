@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Laugh, Mic, Plus, Send } from 'lucide-react';
-import { Input } from '../ui/input';
+import { Laugh, Mic, Send } from 'lucide-react';
+import { Input } from '../../../ui/input';
 import { useState } from 'react';
-import { Button } from '../ui/button';
+import { Button } from '../../../ui/button';
 import { useMutation, useQuery } from 'convex/react';
-import { api } from '../../../convex/_generated/api';
+import { api } from '../../../../../convex/_generated/api';
 import { useConversationStore } from '@/store/chat-store';
 import toast from 'react-hot-toast';
 import useComponentVisible from '@/hooks/useComponentVisible';
 import EmojiPicker, { Theme } from 'emoji-picker-react';
-import MediaDropdown from './media-dropdown';
+import MediaDropdown from '../../media-dropdown';
 
 const MessageInput = () => {
   const [msgText, setMsgText] = useState('');
@@ -17,8 +17,8 @@ const MessageInput = () => {
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false);
 
-  const me = useQuery(api.users.getMe);
-  const sendTextMsg = useMutation(api.messages.sendTextMessage);
+  const me = useQuery(api.functions.users.getMe);
+  const sendTextMsg = useMutation(api.functions.messages.sendTextMessage);
 
   const handleSendTextMsg = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -15,12 +15,15 @@ const ChatBubbleAvatar = ({
   fromAI,
 }: ChatBubbleAvatarProps) => {
   /* Group and ai don't need online signal */
+  console.log('ChatBubbleAvatarProps: ', isGroup, isMember, message, fromAI);
   if (!isGroup && !fromAI) return null;
+
+  console.log('ChatBubbleAvatarProps: ', isGroup, isMember, message, fromAI);
 
   return (
     <Avatar className="overflow-visible relative">
       {/* 
-        only when user is online && is member will have online signal,
+        Only when user is online && is member will have online signal,
         when user has been kicked from the group, stop showing online status
       */}
       {message.sender.isOnline && isMember && (

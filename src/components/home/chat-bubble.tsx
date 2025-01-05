@@ -38,7 +38,7 @@ const ChatBubble = ({ me, message, previousMessage }: ChatBubbleProps) => {
       ? 'bg-white dark:bg-gray-primary'
       : 'bg-blue-500 text-white';
 
-  console.log(message.sender);
+  // console.log('messageSender: ', message.sender);
   const [open, setOpen] = useState(false);
 
   /* text, image, video redering methods */
@@ -59,11 +59,22 @@ const ChatBubble = ({ me, message, previousMessage }: ChatBubbleProps) => {
 
   /* Message is not send from authUser: */
   if (!fromMe) {
+    console.log(
+      'isGroup: ',
+      isGroup,
+      'isMember: ',
+      isMember,
+      'message: ',
+      message,
+      'isfromAI: ',
+      fromAI
+    );
     return (
       <>
         {/* Use DateIndicator to render the timestamp of messages */}
         <DateIndicator message={message} previousMessage={previousMessage} />
         <div className="flex gap-1 w-2/3">
+          hihih
           <ChatBubbleAvatar
             isGroup={isGroup}
             isMember={isMember}
