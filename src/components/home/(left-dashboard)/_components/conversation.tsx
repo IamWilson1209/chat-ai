@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { formatDate } from '@/lib/utils';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '../../../ui/avatar';
 import { MessageSeenSvg } from '@/lib/svgs';
 import { ImageIcon, Users, VideoIcon } from 'lucide-react';
 import { useQuery } from 'convex/react';
-import { api } from '../../../convex/_generated/api';
+import { api } from '../../../../../convex/_generated/api';
 import { useConversationStore } from '@/store/chat-store';
 
 const Conversation = ({ conversation }: { conversation: any }) => {

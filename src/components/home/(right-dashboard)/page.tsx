@@ -7,13 +7,26 @@ import ChatPlaceHolder from '@/components/home/chat-placeholder';
 import GroupMembersDialog from '../group-members-dialog';
 import { useConversationStore } from '@/store/chat-store';
 import { useConvexAuth } from 'convex/react';
+import Skeleton from '../_components/skeleton';
 
 const RightDashboard = () => {
   const { selectedConversation, setSelectedConversation } =
     useConversationStore();
   const { isLoading } = useConvexAuth();
-  /* This can be changed to loading skeleton */
-  if (isLoading) return null;
+
+  /* Loading skeleton */
+  if (isLoading) {
+    return (
+      <div className="w-3/4 flex flex-col gap-4 p-5">
+        <div className="flex items-center gap-3">
+          <Skeleton className="h-10 w-10 rounded-full" />
+          <Skeleton className="h-4 w-1/4" />
+        </div>
+        <Skeleton className="h-[70vh] w-full" />
+        <Skeleton className="h-12 w-full" />
+      </div>
+    );
+  }
   if (!selectedConversation) return <ChatPlaceHolder />;
 
   const conversationName =

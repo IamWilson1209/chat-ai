@@ -1,7 +1,7 @@
 'use client';
 import { ListFilter, Search } from 'lucide-react';
 import { Input } from '../../ui/input';
-import Conversation from '../conversation';
+import Conversation from './_components/conversation';
 import { UserButton } from '@clerk/nextjs';
 
 import UserListDialog from '../user-list-dialog';
@@ -10,6 +10,7 @@ import { api } from '../../../../convex/_generated/api';
 import { useEffect } from 'react';
 import { useConversationStore } from '@/store/chat-store';
 import ThemeSwitch from '../theme-dropdown-menu';
+import Skeleton from '../_components/skeleton';
 
 const LeftDashboard = () => {
   const { isAuthenticated, isLoading } = useConvexAuth();
@@ -48,17 +49,41 @@ const LeftDashboard = () => {
     }
   }, [conversations, selectedConversation, setSelectedConversation]);
 
-  /* This can be changed to loading skeleton */
-  if (isLoading) return null;
+  /* Changed to loading skeleton */
+  if (isLoading) {
+    return (
+      <div className="w-1/4 border-gray-800 border-r">
+        <div className="sticky top-0 bg-left-panel z-10">
+          {/* Header Skeleton */}
+          <div className="flex justify-between bg-gray-primary p-3 items-center">
+            <Skeleton className="h-10 w-10 rounded-full" />
+            <div className="flex items-center gap-3">
+              <Skeleton className="h-6 w-6" />
+              <Skeleton className="h-6 w-6" />
+            </div>
+          </div>
+          {/* Search Skeleton */}
+          <div className="p-3 flex items-center">
+            <Skeleton className="h-10 w-full mx-3" />
+            <Skeleton className="h-10 w-10" />
+          </div>
+        </div>
+        {/* Chat List Skeleton */}
+        <div className="my-3 flex flex-col gap-3 max-h-[80%] max-w-[90%] ml-3">
+          {Array.from({ length: 3 }).map((_, index) => (
+            <Skeleton key={index} className="h-12 w-full" />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-1/4 border-gray-600 border-r">
       <div className="sticky top-0 bg-left-panel z-10">
         {/* Header */}
-        <div className="flex justify-between bg-white-primary">
-          <UserButton />
-        </div>
         <div className="flex justify-between bg-gray-primary p-3 items-center">
+          <UserButton />
           <div className="flex items-center gap-3">
             {isAuthenticated && <UserListDialog />}
             <ThemeSwitch />
@@ -81,9 +106,9 @@ const LeftDashboard = () => {
         </div>
       </div>
 
-      {/* Chat List */}
+      {/* Conversation List */}
       <div className="my-3 flex flex-col gap-0 max-h-[80%] overflow-auto">
-        {/* Conversations will go here*/}
+        {/* Conversations will go here */}
         {conversations?.map((conversation) => (
           <Conversation key={conversation._id} conversation={conversation} />
         ))}
@@ -94,8 +119,7 @@ const LeftDashboard = () => {
               No conversations yet
             </p>
             <p className="text-center text-gray-500 text-sm mt-3 ">
-              We understand {"you're"} an introvert, but {"you've"} got to start
-              somewhere 😊
+              Start your first chat with family, friends, and AI!!
             </p>
           </>
         )}
