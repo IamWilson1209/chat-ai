@@ -12,7 +12,7 @@ const Conversation = ({ conversation }: { conversation: any }) => {
   const conversationName = conversation.groupName || conversation.name;
   const lastMessage = conversation.lastMessage;
   const lastMessageType = lastMessage?.messageType;
-  const me = useQuery(api.users.getMe);
+  const me = useQuery(api.functions.users.getMe);
 
   const { setSelectedConversation, selectedConversation } =
     useConversationStore();

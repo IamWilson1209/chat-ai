@@ -30,10 +30,14 @@ const UserListDialog = () => {
   const imgRef = useRef<HTMLInputElement>(null);
   const dialogCloseRef = useRef<HTMLButtonElement>(null);
 
-  const createConversation = useMutation(api.conversations.createConversation);
-  const generateUploadUrl = useMutation(api.conversations.generateUploadUrl);
-  const me = useQuery(api.users.getMe);
-  const users = useQuery(api.users.getAllUsers);
+  const createConversation = useMutation(
+    api.functions.conversations.createConversation
+  );
+  const generateUploadUrl = useMutation(
+    api.functions.conversations.generateUploadUrl
+  );
+  const me = useQuery(api.functions.users.getMe);
+  const users = useQuery(api.functions.users.getAllUsers);
 
   const { setSelectedConversation } = useConversationStore();
 

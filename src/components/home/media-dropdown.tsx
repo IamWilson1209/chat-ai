@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useRef, useState } from 'react';
 import {
   DropdownMenu,
@@ -23,10 +24,12 @@ const MediaDropdown = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const generateUploadUrl = useMutation(api.conversations.generateUploadUrl);
-  const sendImage = useMutation(api.messages.sendImage);
-  const sendVideo = useMutation(api.messages.sendVideo);
-  const me = useQuery(api.users.getMe);
+  const generateUploadUrl = useMutation(
+    api.functions.conversations.generateUploadUrl
+  );
+  const sendImage = useMutation(api.functions.messages.sendImage);
+  const sendVideo = useMutation(api.functions.messages.sendVideo);
+  const me = useQuery(api.functions.users.getMe);
 
   const { selectedConversation } = useConversationStore();
 

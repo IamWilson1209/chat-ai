@@ -1,14 +1,14 @@
 'use client';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Video, X } from 'lucide-react';
-import MessageInput from './message-input';
-import MessageContainer from './message-container';
+import MessageInput from '../message-input';
+import MessageContainer from '../message-container';
 import ChatPlaceHolder from '@/components/home/chat-placeholder';
-import GroupMembersDialog from './group-members-dialog';
+import GroupMembersDialog from '../group-members-dialog';
 import { useConversationStore } from '@/store/chat-store';
 import { useConvexAuth } from 'convex/react';
 
-const RightPanel = () => {
+const RightDashboard = () => {
   const { selectedConversation, setSelectedConversation } =
     useConversationStore();
   const { isLoading } = useConvexAuth();
@@ -67,4 +67,4 @@ const RightPanel = () => {
     </div>
   );
 };
-export default RightPanel;
+export default RightDashboard;

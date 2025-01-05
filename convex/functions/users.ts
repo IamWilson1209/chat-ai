@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { v } from "convex/values";
 import { internalMutation, query } from "../_generated/server";
+import { removeHttps } from "../../src/lib/remove-https";
 
 export const createUser = internalMutation({
   args: {
@@ -111,10 +112,14 @@ export const getMe = query({
       throw new Error("Unauthorized");
     }
 
+    const identityTokenIdentifier = removeHttps(identity.tokenIdentifier)
+
     const user = await ctx.db
       .query("users")
-      .withIndex("by_tokenIdentifier", (q) => q.eq("tokenIdentifier", identity.tokenIdentifier))
+      .withIndex("by_tokenIdentifier", (q) => q.eq("tokenIdentifier", identityTokenIdentifier))
       .unique();
+
+    console.log('user: ', user)
 
     if (!user) {
       throw new Error("User not found");

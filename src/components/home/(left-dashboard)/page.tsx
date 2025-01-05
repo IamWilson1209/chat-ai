@@ -1,20 +1,20 @@
 'use client';
 import { ListFilter, Search } from 'lucide-react';
-import { Input } from '../ui/input';
-// import ThemeSwitch from "./theme-switch";
-import Conversation from './conversation';
+import { Input } from '../../ui/input';
+import Conversation from '../conversation';
 import { UserButton } from '@clerk/nextjs';
 
-import UserListDialog from './user-list-dialog';
+import UserListDialog from '../user-list-dialog';
 import { useConvexAuth, useQuery } from 'convex/react';
-import { api } from '../../../convex/_generated/api';
+import { api } from '../../../../convex/_generated/api';
 import { useEffect } from 'react';
 import { useConversationStore } from '@/store/chat-store';
-import ThemeSwitch from './theme-changer';
+import ThemeSwitch from '../theme-dropdown-menu';
 
-const LeftPanel = () => {
+const LeftDashboard = () => {
   const { isAuthenticated, isLoading } = useConvexAuth();
   /* 
+    Docs: https://docs.convex.dev/tutorial/
     1. useQuery to get the conversations from convex db
     2. use isAuthenticated ? undefined : "skip" to prevent server auth error 
   */
@@ -27,7 +27,7 @@ const LeftPanel = () => {
     useConversationStore();
 
   /* 
-    if a user has been kicked out, using useEffect to update global state
+    If a user has been kicked out, using useEffect to update global state
     to make sure that user is not allowed to seen the conversation
   */
   useEffect(() => {
@@ -35,7 +35,7 @@ const LeftPanel = () => {
       (conversation) => conversation._id
     );
     /* 
-      if the kicked user has global state that opening the conversation
+      If kicked user has global state that opening a conversation,
       make sure the global state is updated to null
     */
     if (
@@ -56,8 +56,6 @@ const LeftPanel = () => {
       <div className="sticky top-0 bg-left-panel z-10">
         {/* Header */}
         <div className="flex justify-between bg-white-primary">
-          <UserButton />
-          <UserButton />
           <UserButton />
         </div>
         <div className="flex justify-between bg-gray-primary p-3 items-center">
@@ -105,4 +103,4 @@ const LeftPanel = () => {
     </div>
   );
 };
-export default LeftPanel;
+export default LeftDashboard;

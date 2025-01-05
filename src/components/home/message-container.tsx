@@ -6,10 +6,10 @@ import { useEffect, useRef } from 'react';
 
 const MessageContainer = () => {
   const { selectedConversation } = useConversationStore();
-  const messages = useQuery(api.messages.getMessages, {
+  const messages = useQuery(api.functions.messages.getMessages, {
     conversation: selectedConversation!._id,
   });
-  const me = useQuery(api.users.getMe);
+  const me = useQuery(api.functions.users.getMe);
   const lastMessageRef = useRef<HTMLDivElement>(null);
 
   /*  */

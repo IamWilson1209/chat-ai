@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { v } from 'convex/values';
+import { ConvexError, v } from 'convex/values';
 import { mutation, query } from '../_generated/server';
+import { removeHttps } from '../../src/lib/remove-https';
 
 export const createConversation = mutation({
   args: {
@@ -58,12 +59,16 @@ export const getUserConversations = query({
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) throw new Error('Unauthorized');
 
+    const identityTokenIdentifier = removeHttps(identity.tokenIdentifier)
+
     const authUser = await ctx.db
       .query('users')
       .withIndex('by_tokenIdentifier', (q) =>
-        q.eq('tokenIdentifier', identity.tokenIdentifier)
+        q.eq('tokenIdentifier', identityTokenIdentifier)
       )
       .unique();
+
+    console.log("authUser: ", authUser)
 
     if (!authUser) throw new Error('User not found');
 

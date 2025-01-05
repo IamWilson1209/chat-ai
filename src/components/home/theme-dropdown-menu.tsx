@@ -10,6 +10,10 @@ import { useTheme } from 'next-themes';
 import { MoonIcon, SunIcon } from '@radix-ui/react-icons';
 
 const ThemeSwitch = () => {
+  /*
+    Docs: https://ui.shadcn.com/docs/dark-mode/next 
+  */
+
   const { setTheme } = useTheme();
 
   return (
