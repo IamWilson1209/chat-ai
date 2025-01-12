@@ -59,22 +59,11 @@ const ChatBubble = ({ me, message, previousMessage }: ChatBubbleProps) => {
 
   /* Message is not send from authUser: */
   if (!fromMe) {
-    console.log(
-      'isGroup: ',
-      isGroup,
-      'isMember: ',
-      isMember,
-      'message: ',
-      message,
-      'isfromAI: ',
-      fromAI
-    );
     return (
       <>
         {/* Use DateIndicator to render the timestamp of messages */}
         <DateIndicator message={message} previousMessage={previousMessage} />
         <div className="flex gap-1 w-2/3">
-          hihih
           <ChatBubbleAvatar
             isGroup={isGroup}
             isMember={isMember}

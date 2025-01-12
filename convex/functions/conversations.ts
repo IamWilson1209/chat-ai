@@ -36,7 +36,6 @@ export const createConversation = mutation({
     }
 
     let groupImage;
-
     if (args.groupImage) {
       groupImage = (await ctx.storage.getUrl(args.groupImage)) as string;
     }
@@ -67,8 +66,6 @@ export const getUserConversations = query({
         q.eq('tokenIdentifier', identityTokenIdentifier)
       )
       .unique();
-
-    console.log("authUser: ", authUser)
 
     if (!authUser) throw new Error('User not found');
 

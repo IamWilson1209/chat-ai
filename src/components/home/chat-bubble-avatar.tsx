@@ -15,10 +15,10 @@ const ChatBubbleAvatar = ({
   fromAI,
 }: ChatBubbleAvatarProps) => {
   /* Group and ai don't need online signal */
-  console.log('ChatBubbleAvatarProps: ', isGroup, isMember, message, fromAI);
+  // console.log('ChatBubbleAvatarProps: ', isGroup, isMember, message, fromAI);
   if (!isGroup && !fromAI) return null;
 
-  console.log('ChatBubbleAvatarProps: ', isGroup, isMember, message, fromAI);
+  // console.log('ChatBubbleAvatarProps: ', isGroup, isMember, message, fromAI);
 
   return (
     <Avatar className="overflow-visible relative">

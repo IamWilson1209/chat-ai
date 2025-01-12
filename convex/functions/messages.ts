@@ -45,18 +45,22 @@ export const sendTextMessage = mutation({
       conversation: args.conversation,
       messageType: "text",
     });
+    console.log("it runs correctly1")
 
-    // TODO => add @gpt check later
+    /* 
+      Check whether the content start with chatgpt, dall-e
+      Schedule the chat action to run immediately,
+      where action is third-party to openai
+    */
     if (args.content.startsWith("@gpt")) {
-      // Schedule the chat action to run immediately
-      await ctx.scheduler.runAfter(0, api.openai.chat, {
+      await ctx.scheduler.runAfter(0, api.openaiAction.chat, {
         messageBody: args.content,
         conversation: args.conversation,
       });
     }
 
     if (args.content.startsWith("@dall-e")) {
-      await ctx.scheduler.runAfter(0, api.openai.dall_e, {
+      await ctx.scheduler.runAfter(0, api.openaiAction.dall_e, {
         messageBody: args.content,
         conversation: args.conversation,
       });
@@ -166,35 +170,39 @@ export const sendVideo = mutation({
   },
 });
 
-// unoptimized
+/* 
 
-// export const getMessages = query({
-// 	args:{
-// 		conversation: v.id("conversations"),
-// 	},
-// 	handler: async (ctx, args) => {
-// 		const identity = await ctx.auth.getUserIdentity();
-// 		if (!identity) {
-// 			throw new Error("Not authenticated");
-// 		}
+unoptimized
 
-// 		const messages = await ctx.db
-// 		.query("messages")
-// 		.withIndex("by_conversation", q=> q.eq("conversation", args.conversation))
-// 		.collect();
+export const getMessages = query({
+  args:{
+    conversation: v.id("conversations"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
 
-// 		// john => 200 , 1
-// 		const messagesWithSender = await Promise.all(
-// 			messages.map(async (message) => {
-// 				const sender = await ctx.db
-// 				.query("users")
-// 				.filter(q => q.eq(q.field("_id"), message.sender))
-// 				.first();
+    const messages = await ctx.db
+    .query("messages")
+    .withIndex("by_conversation", q=> q.eq("conversation", args.conversation))
+    .collect();
 
-// 				return {...message,sender}
-// 			})
-// 		)
+    // john => 200 , 1
+    const messagesWithSender = await Promise.all(
+      messages.map(async (message) => {
+        const sender = await ctx.db
+        .query("users")
+        .filter(q => q.eq(q.field("_id"), message.sender))
+        .first();
 
-// 		return messagesWithSender;
-// 	}
-// });
+        return {...message,sender}
+      })
+    )
+
+    return messagesWithSender;
+  }
+});
+
+*/

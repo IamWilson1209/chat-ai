@@ -18,7 +18,7 @@ import type * as functions_conversations from "../functions/conversations.js";
 import type * as functions_messages from "../functions/messages.js";
 import type * as functions_users from "../functions/users.js";
 import type * as http from "../http.js";
-import type * as openai from "../openai.js";
+import type * as openaiAction from "../openaiAction.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -34,7 +34,7 @@ declare const fullApi: ApiFromModules<{
   "functions/messages": typeof functions_messages;
   "functions/users": typeof functions_users;
   http: typeof http;
-  openai: typeof openai;
+  openaiAction: typeof openaiAction;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,
