@@ -53,14 +53,14 @@ export const sendTextMessage = mutation({
       where action is third-party to openai
     */
     if (args.content.startsWith("@gpt")) {
-      await ctx.scheduler.runAfter(0, api.openaiAction.chat, {
+      await ctx.scheduler.runAfter(0, api.openaiAction.chatgptResponse, {
         messageBody: args.content,
         conversation: args.conversation,
       });
     }
 
     if (args.content.startsWith("@dall-e")) {
-      await ctx.scheduler.runAfter(0, api.openaiAction.dall_e, {
+      await ctx.scheduler.runAfter(0, api.openaiAction.dalleResponse, {
         messageBody: args.content,
         conversation: args.conversation,
       });

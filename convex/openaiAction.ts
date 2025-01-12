@@ -9,73 +9,114 @@ if (!apiKey) {
 }
 const openai = new OpenAI({ apiKey });
 
-export const chat = action({
+export const chatgptResponse = action({
   args: {
     messageBody: v.string(),
     conversation: v.id('conversations'),
   },
   handler: async (ctx, args) => {
     try {
+      /*
+        Call OpenAI API to generate an image 
+        Limits: https://platform.openai.com/settings/organization/limits
+      */
       const res = await openai.chat.completions.create({
-        model: 'gpt-3.5-turbo' /* "gpt-4" also works */,
+        model: 'gpt-3.5-turbo',
         messages: [
           {
-            role: 'system', // Chatgpt role definition
+            role: 'system',
             content:
-              'You are a terse bot in a group chat responding to questions with 1-sentence answers',
+              'You are acting as a consultant to help clients solve qestions with 1-sentence answers',
           },
           {
-            role: 'user', // one who ask
+            role: 'user',
             content: args.messageBody,
           },
         ],
       });
 
-      const messageContent = res.choices[0].message.content;
+      /* Response from openai */
+      const messageResponse = res.choices[0].message.content;
 
+      if (!messageResponse) {
+        throw new Error('Failed to retrieve message response from OpenAI.');
+      }
+
+      /* Send the response to the conversation */
       await ctx.runMutation(api.functions.messages.sendChatGPTMessage, {
-        /* respond from chat-gpt */
         content:
-          messageContent ?? "I'm sorry, I don't understand your question",
+          messageResponse,
         conversation: args.conversation,
         messageType: 'text',
       });
     } catch (error) {
-      console.log('error: ', error);
+      /* console.log Error */
+      console.error('[ChatGPT Action] Error occurred:', {
+        error,
+        args,
+      });
+
+      /* Fallback: Send an error message */
+      const fallbackMessage =
+        "I'm sorry, I couldn't generate an image for your request.";
+
+      /* Send a fallback text */
+      await ctx.runMutation(api.functions.messages.sendChatGPTMessage, {
+        content: fallbackMessage,
+        conversation: args.conversation,
+        messageType: 'text',
+      });
     }
   },
 });
 
-export const dall_e = action({
+export const dalleResponse = action({
   args: {
     conversation: v.id('conversations'),
     messageBody: v.string(),
   },
   handler: async (ctx, args) => {
-    const res = await openai.images.generate({
-      model: 'dall-e-3',
-      prompt: args.messageBody,
-      n: 1,
-      size: '1024x1024',
-    });
+    try {
+      /* 
+        Call OpenAI API to generate an image 
+        Limits: https://platform.openai.com/settings/organization/limits
+      */
+      const res = await openai.images.generate({
+        model: 'dall-e-3',
+        prompt: args.messageBody,
+        n: 1,
+        size: '1024x1024',
+      });
 
-    const imageUrl = res.data[0].url;
-    await ctx.runMutation(api.functions.messages.sendChatGPTMessage, {
-      /* respond from dall-e */
-      content: imageUrl ?? '/poopenai.png',
-      conversation: args.conversation,
-      messageType: 'image',
-    });
+      /* Response from openai */
+      const imageUrl = res.data[0].url;
+
+      if (!imageUrl) {
+        throw new Error('Failed to retrieve image URL from OpenAI response.');
+      }
+
+      /* Send the response to the conversation */
+      await ctx.runMutation(api.functions.messages.sendChatGPTMessage, {
+        content: imageUrl,
+        conversation: args.conversation,
+        messageType: 'image',
+      });
+    } catch (error) {
+      /* console.log Error */
+      console.error('[DALLE Action] Error occurred:', {
+        error,
+        args,
+      });
+
+      /* Fallback: Send an placeholder image */
+      const fallbackImage = '/fallback-image.png';
+
+      /* Send a fallback image */
+      await ctx.runMutation(api.functions.messages.sendChatGPTMessage, {
+        content: fallbackImage,
+        conversation: args.conversation,
+        messageType: 'image',
+      });
+    }
   },
 });
-
-// 1 token ~= 4 chars in English
-// 1 token ~= ¾ words
-// 100 tokens ~= 75 words
-// Or
-// 1-2 sentence ~= 30 tokens
-// 1 paragraph ~= 100 tokens
-// 1,500 words ~= 2048 tokens
-
-// 1 image will cost $0,04(4 cents) => dall-e-3
-// 1 image will cost $0,02(2 cents) => dall-e-2
