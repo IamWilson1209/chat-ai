@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { MessageSeenSvg } from '@/lib/svgs';
 import { IMessage, useConversationStore } from '@/store/chat-store';
-import ChatBubbleAvatar from './chat-bubble-avatar';
+import ChatBubbleAvatar from '../../(right-dashboard)/_components/chat-bubble-avatar';
 import DateIndicator from './date-indicator';
 import Image from 'next/image';
 import { useState } from 'react';
-import { Dialog, DialogContent, DialogDescription } from '../ui/dialog';
+import { Dialog, DialogContent, DialogDescription } from '../../../ui/dialog';
 import ReactPlayer from 'react-player';
 import ChatAvatarActions from './chat-avatar-actions';
 import { Bot } from 'lucide-react';

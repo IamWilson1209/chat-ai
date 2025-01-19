@@ -4,12 +4,12 @@ import { Input } from '../../ui/input';
 import Conversation from './_components/conversation';
 import { UserButton } from '@clerk/nextjs';
 
-import UserListDialog from '../user-list-dialog';
+import UserListDialog from '../_components/user-list-dialog';
 import { useConvexAuth, useQuery } from 'convex/react';
 import { api } from '../../../../convex/_generated/api';
 import { useEffect } from 'react';
 import { useConversationStore } from '@/store/chat-store';
-import ThemeSwitch from '../theme-dropdown-menu';
+import ThemeSwitch from '../_components/theme-dropdown-menu';
 import Skeleton from '../_components/skeleton';
 
 const LeftDashboard = () => {

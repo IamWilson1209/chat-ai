@@ -1,5 +1,5 @@
 import { IMessage } from '@/store/chat-store';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '../../../ui/avatar';
 
 type ChatBubbleAvatarProps = {
   message: IMessage;
@@ -15,10 +15,7 @@ const ChatBubbleAvatar = ({
   fromAI,
 }: ChatBubbleAvatarProps) => {
   /* Group and ai don't need online signal */
-  // console.log('ChatBubbleAvatarProps: ', isGroup, isMember, message, fromAI);
   if (!isGroup && !fromAI) return null;
-
-  // console.log('ChatBubbleAvatarProps: ', isGroup, isMember, message, fromAI);
 
   return (
     <Avatar className="overflow-visible relative">

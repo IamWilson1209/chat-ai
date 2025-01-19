@@ -2,9 +2,9 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Video, X } from 'lucide-react';
 import MessageInput from './_components/message-input';
-import MessageContainer from '../message-container';
+import MessageContainer from './_components/message-container';
 import ChatPlaceHolder from '@/components/home/(left-dashboard)/_components/chat-placeholder';
-import GroupMembersDialog from '../group-members-dialog';
+import GroupMembersDialog from '../_components/group-members-dialog';
 import { useConversationStore } from '@/store/chat-store';
 import { useConvexAuth } from 'convex/react';
 import Skeleton from '../_components/skeleton';
