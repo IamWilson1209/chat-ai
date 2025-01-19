@@ -13,11 +13,26 @@
     --gray-primary: 216, 20%, 95%;
     --gray-secondary: 216, 20%, 95%;
 
+    --top-dashboard-light: 36, 78%, 78%;
+    --top-dashboard-dark: 265, 41%, 90%;
+
+    --left-dashboard: 100, 100%, 100%;
+    --left-dashboard-dark: 216, 20%, 95%;
+
+    --right-dashboard-light: 265, 41%, 90%;
+    --right-dashboard-dark: 216, 20%, 95%;
+
     --left-panel: 100, 100%, 100%;
     --chat-hover: 180, 5%, 96%;
 
     --green-primary: 167, 100%, 33%;
     --green-chat: 111, 91%, 91%;
+
+    --purple-chat: 279, 35%, 76%;
+
+    --amber-chat: 46, 100%, 50%;
+
+    --chatgpt-chat: 158, 100%, 37%;
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -57,11 +72,14 @@
     --gray-secondary: 202, 22%, 17%;
 
     --left-panel: 203, 32%, 10%;
+    --left-dashboard: 203, 32%, 10%;
     --chat-hover: 202, 23%, 16%;
 
     --green-primary: 167, 100%, 33%;
     --green-secondary: 165, 100%, 39%;
     --green-chat: 169, 100%, 18%;
+
+    --amber-chat: 35, 99%, 40%;
 
     --gray-tertiary: 203, 22%, 21%;
 

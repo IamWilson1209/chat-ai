@@ -170,7 +170,7 @@ const UserListDialog = () => {
               key={user._id}
               className={`flex gap-3 items-center p-2 rounded cursor-pointer active:scale-95 
 								transition-all ease-in-out duration-300
-							${selectedUsers.includes(user._id) ? 'bg-green-primary' : ''}`}
+							${selectedUsers.includes(user._id) ? 'bg-amber-500' : ''}`}
               onClick={() => {
                 if (selectedUsers.includes(user._id)) {
                   setSelectedUsers(
@@ -183,7 +183,7 @@ const UserListDialog = () => {
             >
               <Avatar className="overflow-visible">
                 {user.isOnline && (
-                  <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-foreground" />
+                  <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-foreground" />
                 )}
 
                 <AvatarImage

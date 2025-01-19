@@ -60,18 +60,37 @@ export default {
 				"chat-hover": "hsl(var(--chat-hover))",
 				"green-primary": "hsl(var(--green-primary))",
 				"green-secondary": "hsl(var(--green-secondary))",
+				"top-dashboard-light": "hsl(var(--top-dashboard-light))",
+				"left-dashboard": "hsl(var(--left-dashboard))",
+				"right-dashboard-light": "hsl(var(--right-dashboard-light))",
+				"left-dashboard-dark": "hsl(var(--left-dashboard-dark))",
+				"right-dashboard-dark": "hsl(var(--right-dashboard-dark))",
 				"green-chat": "hsl(var(--green-chat))",
+				"amber-chat": "hsl(var(--amber-chat))",
+				"purple-chat": "hsl(var(--purple-chat))",
+				"chatgpt-chat": "hsl(var(--chatgpt-chat))",
 			},
 			backgroundImage: {
-				"chat-tile-light": "url('/bg-light.png')",
-				"chat-tile-dark": "url('/bg-dark.png')",
+				"chat-tile-light": "url('/group-chat-light.jpg')",
+				"chat-tile-dark": "url('/group-chat-dark.jpg')",
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
-			}
+			},
+			backgroundPosition: {
+				'top-left': 'top left',
+				'top-center': 'top center',
+				'top-right': 'top right',
+				'center-left': 'center left',
+				'center': 'center center',
+				'center-right': 'center right',
+				'bottom-left': 'bottom left',
+				'bottom-center': 'bottom center',
+				'bottom-right': 'bottom right',
+			},
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	// plugins: [require("tailwindcss-animate")],
 } satisfies Config;

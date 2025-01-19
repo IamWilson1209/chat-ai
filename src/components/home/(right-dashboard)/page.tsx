@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Video, X } from 'lucide-react';
 import MessageInput from './_components/message-input';
 import MessageContainer from '../message-container';
-import ChatPlaceHolder from '@/components/home/chat-placeholder';
+import ChatPlaceHolder from '@/components/home/(left-dashboard)/_components/chat-placeholder';
 import GroupMembersDialog from '../group-members-dialog';
 import { useConversationStore } from '@/store/chat-store';
 import { useConvexAuth } from 'convex/react';
@@ -37,7 +37,6 @@ const RightDashboard = () => {
   return (
     <div className="w-3/4 flex flex-col">
       <div className="w-full sticky top-0 z-50">
-        {/* Header */}
         <div className="flex justify-between bg-gray-primary p-3">
           <div className="flex gap-3 items-center">
             <Avatar>

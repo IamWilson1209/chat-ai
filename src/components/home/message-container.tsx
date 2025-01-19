@@ -20,7 +20,7 @@ const MessageContainer = () => {
   }, [messages]);
 
   return (
-    <div className="relative p-3 flex-1 overflow-auto h-full bg-chat-tile-light dark:bg-chat-tile-dark">
+    <div className="relative p-3 flex-1 overflow-auto h-full bg-chat-tile-light dark:bg-chat-tile-dark bg-center">
       <div className="mx-12 flex flex-col gap-3">
         {messages?.map((msg, idx) => (
           <div key={msg._id} ref={lastMessageRef}>

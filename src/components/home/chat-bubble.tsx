@@ -33,12 +33,11 @@ const ChatBubble = ({ me, message, previousMessage }: ChatBubbleProps) => {
   const fromMe = message.sender?._id === me._id;
   const fromAI = message.sender?.name === 'ChatGPT';
   const bgClass = fromMe
-    ? 'bg-green-chat'
+    ? 'bg-amber-chat'
     : !fromAI
-      ? 'bg-white dark:bg-gray-primary'
-      : 'bg-blue-500 text-white';
+      ? 'bg-purple-chat dark:bg-gray-primary'
+      : 'bg-chatgpt-chat text-white';
 
-  // console.log('messageSender: ', message.sender);
   const [open, setOpen] = useState(false);
 
   /* text, image, video redering methods */
@@ -199,11 +198,11 @@ const MessageTime = ({ time, fromMe }: { time: string; fromMe: boolean }) => {
 };
 
 const OtherMessageIndicator = () => (
-  <div className="absolute bg-white dark:bg-gray-primary top-0 -left-[4px] w-3 h-3 rounded-bl-full" />
+  <div className="absolute bg-purple-chat dark:bg-gray-primary top-0 -left-[4px] w-3 h-3 rounded-bl-full" />
 );
 
 const SelfMessageIndicator = () => (
-  <div className="absolute bg-green-chat top-0 -right-[3px] w-3 h-3 rounded-br-full overflow-hidden" />
+  <div className="absolute bg-amber-chat top-0 -right-[3px] w-3 h-3 rounded-br-full overflow-hidden" />
 );
 
 /* Check the link for the message and highlight it */

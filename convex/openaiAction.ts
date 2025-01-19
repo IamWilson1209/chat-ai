@@ -109,7 +109,7 @@ export const dalleResponse = action({
       });
 
       /* Fallback: Send an placeholder image */
-      const fallbackImage = '/fallback-image.png';
+      const fallbackImage = '/fallback.webp';
 
       /* Send a fallback image */
       await ctx.runMutation(api.functions.messages.sendChatGPTMessage, {

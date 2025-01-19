@@ -53,7 +53,7 @@ const LeftDashboard = () => {
   if (isLoading) {
     return (
       <div className="w-1/4 border-gray-800 border-r">
-        <div className="sticky top-0 bg-left-panel z-10">
+        <div className="sticky top-0 bg-gray-primary z-10">
           {/* Header Skeleton */}
           <div className="flex justify-between bg-gray-primary p-3 items-center">
             <Skeleton className="h-10 w-10 rounded-full" />
@@ -80,7 +80,7 @@ const LeftDashboard = () => {
 
   return (
     <div className="w-1/4 border-gray-600 border-r">
-      <div className="sticky top-0 bg-left-panel z-10">
+      <div className="sticky top-0 bg-left-dashboard z-10">
         {/* Header */}
         <div className="flex justify-between bg-gray-primary p-3 items-center">
           <UserButton />
@@ -98,7 +98,7 @@ const LeftDashboard = () => {
             />
             <Input
               type="text"
-              placeholder="Search or start a new chat"
+              placeholder="Search for your chat"
               className="pl-10 py-2 text-sm w-full rounded shadow-sm bg-gray-primary focus-visible:ring-transparent"
             />
           </div>
