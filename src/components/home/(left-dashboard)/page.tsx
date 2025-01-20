@@ -1,5 +1,5 @@
 'use client';
-import { ListFilter, Search } from 'lucide-react';
+import { SlidersHorizontal, SearchCheck, BotMessageSquare } from 'lucide-react';
 import { Input } from '../../ui/input';
 import Conversation from './_components/conversation';
 import { UserButton } from '@clerk/nextjs';
@@ -85,6 +85,7 @@ const LeftDashboard = () => {
         <div className="flex justify-between bg-gray-primary p-3 items-center">
           <UserButton />
           <div className="flex items-center gap-3">
+            <BotMessageSquare className="cursor-pointer" />
             {isAuthenticated && <UserListDialog />}
             <ThemeSwitch />
           </div>
@@ -92,7 +93,7 @@ const LeftDashboard = () => {
         <div className="p-3 flex items-center">
           {/* Search */}
           <div className="relative h-10 mx-3 flex-1">
-            <Search
+            <SearchCheck
               className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 z-10"
               size={18}
             />
@@ -102,7 +103,7 @@ const LeftDashboard = () => {
               className="pl-10 py-2 text-sm w-full rounded shadow-sm bg-gray-primary focus-visible:ring-transparent"
             />
           </div>
-          <ListFilter className="cursor-pointer" />
+          <SlidersHorizontal className="cursor-pointer" />
         </div>
       </div>
 

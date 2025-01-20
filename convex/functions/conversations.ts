@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ConvexError, v } from 'convex/values';
 import { mutation, query } from '../_generated/server';
-import { removeHttps } from '../../src/lib/remove-https';
+import { removeHttps } from '../../src/libs/remove-https';
 
 export const createConversation = mutation({
   args: {

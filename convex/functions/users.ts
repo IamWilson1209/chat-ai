@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { v } from "convex/values";
 import { internalMutation, query } from "../_generated/server";
-import { removeHttps } from "../../src/lib/remove-https";
+import { removeHttps } from "../../src/libs/remove-https";
 
 export const createUser = internalMutation({
   args: {

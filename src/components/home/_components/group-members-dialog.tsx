@@ -7,7 +7,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar';
-import { Crown } from 'lucide-react';
+import { Crown, Users } from 'lucide-react';
 import { Conversation } from '@/store/chat-store';
 import { useQuery } from 'convex/react';
 import { api } from '../../../../convex/_generated/api';
@@ -25,11 +25,16 @@ const GroupMembersDialog = ({
   return (
     <Dialog>
       <DialogTrigger>
-        <p className="text-xs text-muted-foreground text-left">See members</p>
+        <div className="flex items-center gap-2">
+          <Users size={13} />
+          <p className="text-xs text-muted-foreground text-left">
+            Group Members
+          </p>
+        </div>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="my-2">Current Members</DialogTitle>
+          <DialogTitle className="my-2">Group Members</DialogTitle>
           <DialogDescription>
             <div className="flex flex-col gap-3 ">
               {users?.map((user) => (

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { formatDate } from '@/lib/utils';
+import { formatDate } from '@/libs/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '../../../ui/avatar';
-import { MessageSeenSvg } from '@/lib/svgs';
+import { MessageSeenSvg } from '@/libs/svgs';
 import { ImageIcon, Users, VideoIcon } from 'lucide-react';
 import { useQuery } from 'convex/react';
 import { api } from '../../../../../convex/_generated/api';

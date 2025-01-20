@@ -1,4 +1,4 @@
-import { getRelativeDateTime, isSameDay } from '@/lib/utils';
+import { getRelativeDateTime, isSameDay } from '@/libs/utils';
 import { IMessage } from '@/store/chat-store';
 
 type DateIndicatorProps = {

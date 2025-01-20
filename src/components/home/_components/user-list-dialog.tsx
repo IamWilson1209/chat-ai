@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '../../ui/input';
 import { Button } from '../../ui/button';
-import { ImageIcon, MessageSquareDiff } from 'lucide-react';
+import { ImageIcon, MessageCirclePlus } from 'lucide-react';
 import { Id } from '../../../../convex/_generated/dataModel';
 import { useMutation, useQuery } from 'convex/react';
 import { api } from '../../../../convex/_generated/api';
@@ -82,7 +82,6 @@ const UserListDialog = () => {
       setGroupName('');
       setSelectedImage(null);
 
-      // TODO => Update a global state called "selectedConversation"
       const conversationName = isGroup
         ? groupName
         : users?.find((user) => user._id === selectedUsers[0])?.name;
@@ -115,11 +114,10 @@ const UserListDialog = () => {
   return (
     <Dialog>
       <DialogTrigger>
-        <MessageSquareDiff size={20} />
+        <MessageCirclePlus size={20} />
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          {/* TODO: <DialogClose /> will be here */}
           <DialogClose ref={dialogCloseRef} />
           <DialogTitle>USERS</DialogTitle>
         </DialogHeader>
@@ -135,7 +133,6 @@ const UserListDialog = () => {
             />
           </div>
         )}
-        {/* TODO: input file */}
         <input
           type="file"
           accept="image/*"

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { MessageSeenSvg } from '@/lib/svgs';
+import { MessageSeenSvg } from '@/libs/svgs';
 import { IMessage, useConversationStore } from '@/store/chat-store';
 import ChatBubbleAvatar from '../../(right-dashboard)/_components/chat-bubble-avatar';
 import DateIndicator from './date-indicator';
