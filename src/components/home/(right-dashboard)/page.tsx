@@ -5,13 +5,18 @@ import MessageInput from './_components/message-input';
 import MessageContainer from './_components/message-container';
 import ChatPlaceHolder from '@/components/home/(left-dashboard)/_components/chat-placeholder';
 import GroupMembersDialog from '../_components/group-members-dialog';
-import { useConversationStore } from '@/store/chat-store';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@/app/redux/stores/store';
+import { setSelectedConversation } from '@/app/redux/reducers/conversation-reducer';
 import { useConvexAuth } from 'convex/react';
 import Skeleton from '../_components/skeleton';
 
 const RightDashboard = () => {
-  const { selectedConversation, setSelectedConversation } =
-    useConversationStore();
+  const dispatch = useDispatch();
+  const selectedConversation = useSelector(
+    (state: RootState) => state.conversations.selectedConversation
+  );
+
   const { isLoading } = useConvexAuth();
 
   /* Loading skeleton */
@@ -66,7 +71,7 @@ const RightDashboard = () => {
             <X
               size={16}
               className="cursor-pointer"
-              onClick={() => setSelectedConversation(null)}
+              onClick={() => dispatch(setSelectedConversation(null))}
             />
           </div>
         </div>

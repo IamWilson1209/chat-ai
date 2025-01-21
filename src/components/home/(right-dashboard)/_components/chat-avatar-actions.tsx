@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { IMessage, useConversationStore } from '@/store/chat-store';
+import { IMessage } from '@/store/chat-store';
 import { useMutation } from 'convex/react';
 import { Ban, LogOut } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { api } from '../../../../../convex/_generated/api';
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@/app/redux/stores/store';
+import { setSelectedConversation } from '@/app/redux/reducers/conversation-reducer';
 
 type ChatAvatarActionsProps = {
   message: IMessage;
@@ -13,8 +16,10 @@ type ChatAvatarActionsProps = {
 };
 
 const ChatAvatarActions = ({ me, message }: ChatAvatarActionsProps) => {
-  const { selectedConversation, setSelectedConversation } =
-    useConversationStore();
+  const dispatch = useDispatch();
+  const selectedConversation = useSelector(
+    (state: RootState) => state.conversations.selectedConversation
+  );
 
   const isMember = selectedConversation?.participants.includes(
     message.sender._id
@@ -48,12 +53,14 @@ const ChatAvatarActions = ({ me, message }: ChatAvatarActionsProps) => {
         update global state of selectedConversation
         when an user has been kicked
       */
-      setSelectedConversation({
-        ...selectedConversation,
-        participants: selectedConversation.participants.filter(
-          (id) => id !== message.sender._id
-        ),
-      });
+      dispatch(
+        setSelectedConversation({
+          ...selectedConversation,
+          participants: selectedConversation.participants.filter(
+            (id) => id !== message.sender._id
+          ),
+        })
+      );
     } catch (error) {
       toast.error('Failed to kick user');
     }
@@ -73,14 +80,16 @@ const ChatAvatarActions = ({ me, message }: ChatAvatarActionsProps) => {
         when a specific conversation has been created
         turn to new conversation with that user
       */
-      setSelectedConversation({
-        _id: conversationId,
-        name: message.sender.name,
-        participants: [me._id, message.sender._id],
-        isGroup: false,
-        isOnline: message.sender.isOnline,
-        image: message.sender.image,
-      });
+      dispatch(
+        setSelectedConversation({
+          _id: conversationId,
+          name: message.sender.name,
+          participants: [me._id, message.sender._id],
+          isGroup: false,
+          isOnline: message.sender.isOnline,
+          image: message.sender.image,
+        })
+      );
     } catch (error) {
       toast.error('Failed to create conversation');
     }

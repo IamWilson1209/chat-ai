@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { MessageSeenSvg } from '@/libs/svgs';
-import { IMessage, useConversationStore } from '@/store/chat-store';
+import { IMessage } from '@/store/chat-store';
 import ChatBubbleAvatar from '../../(right-dashboard)/_components/chat-bubble-avatar';
 import DateIndicator from './date-indicator';
 import Image from 'next/image';
@@ -9,6 +9,9 @@ import { Dialog, DialogContent, DialogDescription } from '../../../ui/dialog';
 import ReactPlayer from 'react-player';
 import ChatAvatarActions from './chat-avatar-actions';
 import { Bot } from 'lucide-react';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@/app/redux/stores/store';
+import { setSelectedConversation } from '@/app/redux/reducers/conversation-reducer';
 
 /* 
 Passing previous message to check the date time, 

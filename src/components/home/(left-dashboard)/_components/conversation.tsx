@@ -5,17 +5,21 @@ import { MessageSeenSvg } from '@/libs/svgs';
 import { ImageIcon, Users, VideoIcon } from 'lucide-react';
 import { useQuery } from 'convex/react';
 import { api } from '../../../../../convex/_generated/api';
-import { useConversationStore } from '@/store/chat-store';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@/app/redux/stores/store';
+import { setSelectedConversation } from '@/app/redux/reducers/conversation-reducer';
 
 const Conversation = ({ conversation }: { conversation: any }) => {
+  const dispatch = useDispatch();
   const conversationImage = conversation.groupImage || conversation.image;
   const conversationName = conversation.groupName || conversation.name;
   const lastMessage = conversation.lastMessage;
   const lastMessageType = lastMessage?.messageType;
   const me = useQuery(api.functions.users.getMe);
 
-  const { setSelectedConversation, selectedConversation } =
-    useConversationStore();
+  const selectedConversation = useSelector(
+    (state: RootState) => state.conversations.selectedConversation
+  );
   const activeBgClass = selectedConversation?._id === conversation._id;
 
   return (
@@ -24,7 +28,7 @@ const Conversation = ({ conversation }: { conversation: any }) => {
         className={`flex gap-2 items-center p-3 hover:bg-chat-hover cursor-pointer
 					${activeBgClass ? 'bg-gray-tertiary' : ''}
 				`}
-        onClick={() => setSelectedConversation(conversation)}
+        onClick={() => dispatch(setSelectedConversation(conversation))}
       >
         <Avatar className="border border-gray-900 overflow-visible relative">
           {conversation.isOnline && (
