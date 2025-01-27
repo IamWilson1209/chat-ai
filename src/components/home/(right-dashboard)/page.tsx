@@ -6,15 +6,15 @@ import MessageContainer from './_components/message-container';
 import ChatPlaceHolder from '@/components/home/(left-dashboard)/_components/chat-placeholder';
 import GroupMembersDialog from '../_components/group-members-dialog';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@/app/redux/stores/store';
-import { setSelectedConversation } from '@/app/redux/reducers/conversation-reducer';
+import { RootState } from '@/app/redux/stores';
+import { setSelectedConversation } from '@/app/redux/conversation/slice';
 import { useConvexAuth } from 'convex/react';
 import Skeleton from '../_components/skeleton';
 
 const RightDashboard = () => {
   const dispatch = useDispatch();
   const selectedConversation = useSelector(
-    (state: RootState) => state.conversations.selectedConversation
+    (state: RootState) => state.conversation.selectedConversation
   );
 
   const { isLoading } = useConvexAuth();

@@ -1,15 +1,13 @@
+// store/index.ts
 import { configureStore } from '@reduxjs/toolkit';
-import conversationsReducer from '../reducers/conversation-reducer';
+import conversationReducer from '../conversation/slice';
 
-
-// 建立 Redux Store
 export const store = configureStore({
   reducer: {
-    conversations: conversationsReducer,
+    conversation: conversationReducer,
   },
 });
 
-// 定義 RootState 和 AppDispatch 類型
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 

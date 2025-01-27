@@ -8,8 +8,8 @@ import { useConvexAuth, useQuery } from 'convex/react';
 import { api } from '../../../../convex/_generated/api';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@/app/redux/stores/store';
-import { setSelectedConversation } from '@/app/redux/reducers/conversation-reducer';
+import { RootState } from '@/app/redux/stores';
+import { setSelectedConversation } from '@/app/redux/conversation/slice';
 import ThemeSwitch from '../_components/theme-dropdown-menu';
 import Skeleton from '../_components/skeleton';
 
@@ -27,7 +27,7 @@ const LeftDashboard = () => {
 
   // 從 Redux Store 獲取狀態和 Dispatch
   const selectedConversation = useSelector(
-    (state: RootState) => state.conversations.selectedConversation
+    (state: RootState) => state.conversation.selectedConversation
   );
   const dispatch = useDispatch();
 

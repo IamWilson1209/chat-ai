@@ -9,9 +9,8 @@ import { Dialog, DialogContent, DialogDescription } from '../../../ui/dialog';
 import ReactPlayer from 'react-player';
 import ChatAvatarActions from './chat-avatar-actions';
 import { Bot } from 'lucide-react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@/app/redux/stores/store';
-import { setSelectedConversation } from '@/app/redux/reducers/conversation-reducer';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/redux/stores';
 
 /* 
 Passing previous message to check the date time, 
@@ -29,7 +28,9 @@ const ChatBubble = ({ me, message, previousMessage }: ChatBubbleProps) => {
   const minute = date.getMinutes().toString().padStart(2, '0');
   const time = `${hour}:${minute}`;
 
-  const { selectedConversation } = useConversationStore();
+  const selectedConversation = useSelector(
+    (state: RootState) => state.conversation.selectedConversation
+  );
   const isMember =
     selectedConversation?.participants.includes(message.sender?._id) || false;
   const isGroup = selectedConversation?.isGroup;

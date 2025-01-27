@@ -1,5 +1,5 @@
 import { Provider } from 'react-redux';
-import { store } from '../app/redux/stores/store';
+import { store } from '../app/redux/stores';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app'; // 引入 Next.js 預設型別
 

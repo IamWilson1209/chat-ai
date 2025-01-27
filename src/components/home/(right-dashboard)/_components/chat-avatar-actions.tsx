@@ -7,8 +7,8 @@ import toast from 'react-hot-toast';
 import { api } from '../../../../../convex/_generated/api';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@/app/redux/stores/store';
-import { setSelectedConversation } from '@/app/redux/reducers/conversation-reducer';
+import { RootState } from '@/app/redux/stores';
+import { setSelectedConversation } from '@/app/redux/conversation/slice';
 
 type ChatAvatarActionsProps = {
   message: IMessage;
@@ -18,7 +18,7 @@ type ChatAvatarActionsProps = {
 const ChatAvatarActions = ({ me, message }: ChatAvatarActionsProps) => {
   const dispatch = useDispatch();
   const selectedConversation = useSelector(
-    (state: RootState) => state.conversations.selectedConversation
+    (state: RootState) => state.conversation.selectedConversation
   );
 
   const isMember = selectedConversation?.participants.includes(

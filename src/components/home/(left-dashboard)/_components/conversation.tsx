@@ -6,8 +6,8 @@ import { ImageIcon, Users, VideoIcon } from 'lucide-react';
 import { useQuery } from 'convex/react';
 import { api } from '../../../../../convex/_generated/api';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@/app/redux/stores/store';
-import { setSelectedConversation } from '@/app/redux/reducers/conversation-reducer';
+import { RootState } from '@/app/redux/stores';
+import { setSelectedConversation } from '@/app/redux/conversation/slice';
 
 const Conversation = ({ conversation }: { conversation: any }) => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const Conversation = ({ conversation }: { conversation: any }) => {
   const me = useQuery(api.functions.users.getMe);
 
   const selectedConversation = useSelector(
-    (state: RootState) => state.conversations.selectedConversation
+    (state: RootState) => state.conversation.selectedConversation
   );
   const activeBgClass = selectedConversation?._id === conversation._id;
 
