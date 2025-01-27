@@ -5,15 +5,18 @@ import { useState } from 'react';
 import { Button } from '../../../ui/button';
 import { useMutation, useQuery } from 'convex/react';
 import { api } from '../../../../../convex/_generated/api';
-import { useConversationStore } from '@/store/chat-store';
 import toast from 'react-hot-toast';
 import useComponentVisible from '@/hooks/useComponentVisible';
 import EmojiPicker, { Theme } from 'emoji-picker-react';
 import MediaDropdown from './media-dropdown';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/redux/stores';
 
 const MessageInput = () => {
   const [msgText, setMsgText] = useState('');
-  const { selectedConversation } = useConversationStore();
+  const selectedConversation = useSelector(
+    (state: RootState) => state.conversation.selectedConversation
+  );
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false);
 

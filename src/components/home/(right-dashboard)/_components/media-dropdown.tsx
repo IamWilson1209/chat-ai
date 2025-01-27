@@ -14,7 +14,8 @@ import ReactPlayer from 'react-player';
 import toast from 'react-hot-toast';
 import { useMutation, useQuery } from 'convex/react';
 import { api } from '../../../../../convex/_generated/api';
-import { useConversationStore } from '@/store/chat-store';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/redux/stores';
 
 const MediaDropdown = () => {
   const imageInput = useRef<HTMLInputElement>(null);
@@ -31,7 +32,9 @@ const MediaDropdown = () => {
   const sendVideo = useMutation(api.functions.messages.sendVideo);
   const me = useQuery(api.functions.users.getMe);
 
-  const { selectedConversation } = useConversationStore();
+  const selectedConversation = useSelector(
+    (state: RootState) => state.conversation.selectedConversation
+  );
 
   const handleSendImage = async () => {
     setIsLoading(true);

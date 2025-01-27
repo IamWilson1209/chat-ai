@@ -3,12 +3,13 @@ import { SlidersHorizontal, SearchCheck, BotMessageSquare } from 'lucide-react';
 import { Input } from '../../ui/input';
 import Conversation from './_components/conversation';
 import { UserButton } from '@clerk/nextjs';
-
 import UserListDialog from '../_components/user-list-dialog';
 import { useConvexAuth, useQuery } from 'convex/react';
 import { api } from '../../../../convex/_generated/api';
 import { useEffect } from 'react';
-import { useConversationStore } from '@/store/chat-store';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@/app/redux/stores';
+import { setSelectedConversation } from '@/app/redux/conversation/slice';
 import ThemeSwitch from '../_components/theme-dropdown-menu';
 import Skeleton from '../_components/skeleton';
 
@@ -24,30 +25,47 @@ const LeftDashboard = () => {
     isAuthenticated ? undefined : 'skip'
   );
 
-  const { selectedConversation, setSelectedConversation } =
-    useConversationStore();
+  // 從 Redux Store 獲取狀態和 Dispatch
+  const selectedConversation = useSelector(
+    (state: RootState) => state.conversation.selectedConversation
+  );
+  const dispatch = useDispatch();
 
-  /* 
-    If a user has been kicked out, using useEffect to update global state
-    to make sure that user is not allowed to seen the conversation
-  */
+  // 如果用戶被踢出，更新 Redux 狀態
   useEffect(() => {
     const conversationIds = conversations?.map(
       (conversation) => conversation._id
     );
-    /* 
-      If kicked user has global state that opening a conversation,
-      make sure the global state is updated to null
-    */
     if (
       selectedConversation &&
       conversationIds &&
       !conversationIds.includes(selectedConversation._id)
     ) {
-      // global state is updated to null
-      setSelectedConversation(null);
+      dispatch(setSelectedConversation(null));
     }
-  }, [conversations, selectedConversation, setSelectedConversation]);
+  }, [conversations, selectedConversation, dispatch]);
+
+  /* 
+    If a user has been kicked out, using useEffect to update global state
+    to make sure that user is not allowed to seen the conversation
+  */
+  // useEffect(() => {
+  //   const conversationIds = conversations?.map(
+  //     (conversation) => conversation._id
+  //   );
+  //   /*
+  //     If kicked user has global state that opening a conversation,
+  //     make sure the global state is updated to null
+  //   */
+  //   if (
+  //     selectedConversation &&
+  //     conversationIds &&
+  //     !conversationIds.includes(selectedConversation._id)
+  //   ) {
+  //     // global state is updated to null
+  //     setSelectedConversation(null);
+  //   }
+  // }, [conversations, selectedConversation, setSelectedConversation]);
 
   /* Changed to loading skeleton */
   if (isLoading) {

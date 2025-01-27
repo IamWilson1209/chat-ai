@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from 'next-themes';
 import ConvexClientProvider from '@/providers/convex-client-provider';
+import { ReduxProvider } from '@/providers/store-provider';
 import { Toaster } from 'react-hot-toast';
 
 const geistSans = Geist({
@@ -42,7 +43,7 @@ export default function RootLayout({
           */}
           <ConvexClientProvider>
             <Toaster />
-            {children}
+            <ReduxProvider>{children}</ReduxProvider>
           </ConvexClientProvider>
         </ThemeProvider>
       </body>
