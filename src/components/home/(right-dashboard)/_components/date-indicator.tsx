@@ -1,5 +1,5 @@
 import { getRelativeDateTime, isSameDay } from '@/libs/utils';
-import { IMessage } from '@/store/chat-store';
+import { IMessage } from '@/app/redux/conversation/IMessage';
 
 type DateIndicatorProps = {
   message: IMessage;
