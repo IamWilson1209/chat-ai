@@ -6,11 +6,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Crown, Users } from 'lucide-react';
-import { Conversation } from '@/store/chat-store';
+import { Conversation } from '@/app/redux/conversation/conversation-type';
 import { useQuery } from 'convex/react';
-import { api } from '../../../../convex/_generated/api';
+import { api } from '../../convex/_generated/api';
 
 type GroupMembersDialogProps = {
   selectedConversation: Conversation;

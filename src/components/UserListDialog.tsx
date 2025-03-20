@@ -10,12 +10,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Input } from '../../ui/input';
-import { Button } from '../../ui/button';
+import { Input } from './ui/input';
+import { Button } from './ui/button';
 import { ImageIcon, MessageCirclePlus } from 'lucide-react';
-import { Id } from '../../../../convex/_generated/dataModel';
+import { Id } from '../../convex/_generated/dataModel';
 import { useMutation, useQuery } from 'convex/react';
-import { api } from '../../../../convex/_generated/api';
+import { api } from '../../convex/_generated/api';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { setSelectedConversation } from '@/app/redux/conversation/slice';

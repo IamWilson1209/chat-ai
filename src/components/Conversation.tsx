@@ -1,9 +1,9 @@
 import { formatDate } from '@/libs/utils';
-import { Avatar, AvatarFallback, AvatarImage } from '../../../ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { MessageSeenSvg } from '@/libs/svgs';
 import { ImageIcon, Users, VideoIcon } from 'lucide-react';
 import { useQuery } from 'convex/react';
-import { api } from '../../../../../convex/_generated/api';
+import { api } from '../../convex/_generated/api';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/app/redux/stores';
 import { setSelectedConversation } from '@/app/redux/conversation/slice';

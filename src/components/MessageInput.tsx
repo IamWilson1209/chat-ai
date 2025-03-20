@@ -1,13 +1,13 @@
 import { Laugh, Mic, Send } from 'lucide-react';
-import { Input } from '../../../ui/input';
+import { Input } from './ui/input';
 import { useState } from 'react';
-import { Button } from '../../../ui/button';
+import { Button } from './ui/button';
 import { useMutation, useQuery } from 'convex/react';
-import { api } from '../../../../../convex/_generated/api';
+import { api } from '../../convex/_generated/api';
 import toast from 'react-hot-toast';
 import useComponentVisible from '@/hooks/useComponentVisible';
 import EmojiPicker, { Theme } from 'emoji-picker-react';
-import MediaDropdown from './media-dropdown';
+import MediaDropdown from './MediaDropdown';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/redux/stores';
 

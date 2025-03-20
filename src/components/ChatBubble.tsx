@@ -1,12 +1,12 @@
 import { MessageSeenSvg } from '@/libs/svgs';
 import { IMessage } from '@/app/redux/conversation/IMessage';
-import ChatBubbleAvatar from '../../(right-dashboard)/_components/chat-bubble-avatar';
-import DateIndicator from './date-indicator';
+import ChatBubbleAvatar from './ChatBubbleAvatar';
+import DateIndicator from './DateIndicator';
 import Image from 'next/image';
 import { useState } from 'react';
-import { Dialog, DialogContent, DialogDescription } from '../../../ui/dialog';
+import { Dialog, DialogContent, DialogDescription } from './ui/dialog';
 import ReactPlayer from 'react-player';
-import ChatAvatarActions from './chat-avatar-actions';
+import ChatAvatarActions from './ChatAvatarActions';
 import { Bot } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/redux/stores';

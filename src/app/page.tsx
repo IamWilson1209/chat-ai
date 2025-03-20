@@ -1,7 +1,7 @@
 'use client';
 
-import LeftDashboard from '@/components/home/(left-dashboard)/page';
-import RightDashboard from '@/components/home/(right-dashboard)/page';
+import LeftDashboard from '@/components/LeftDashboard';
+import RightDashboard from '@/components/RightDashboard';
 
 export default function Home() {
   return (

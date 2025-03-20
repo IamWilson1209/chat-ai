@@ -2,7 +2,7 @@ import { IMessage } from '@/app/redux/conversation/IMessage';
 import { useMutation } from 'convex/react';
 import { Ban, LogOut } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { api } from '../../../../../convex/_generated/api';
+import { api } from '../../convex/_generated/api';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/app/redux/stores';

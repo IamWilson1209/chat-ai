@@ -1,17 +1,17 @@
 'use client';
 import { SlidersHorizontal, SearchCheck, BotMessageSquare } from 'lucide-react';
-import { Input } from '../../ui/input';
-import Conversation from './_components/conversation';
+import { Input } from './ui/input';
+import Conversation from './Conversation';
 import { UserButton } from '@clerk/nextjs';
-import UserListDialog from '../_components/user-list-dialog';
+import UserListDialog from './UserListDialog';
 import { useConvexAuth, useQuery } from 'convex/react';
-import { api } from '../../../../convex/_generated/api';
+import { api } from '../../convex/_generated/api';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/app/redux/stores';
 import { setSelectedConversation } from '@/app/redux/conversation/slice';
-import ThemeSwitch from '../_components/theme-dropdown-menu';
-import Skeleton from '../_components/skeleton';
+import ThemeSwitch from './ThemeSwitch';
+import Skeleton from './Skeleton';
 
 const LeftDashboard = () => {
   const { isAuthenticated, isLoading } = useConvexAuth();

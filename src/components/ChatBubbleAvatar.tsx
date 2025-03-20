@@ -1,5 +1,5 @@
 import { IMessage } from '@/app/redux/conversation/IMessage';
-import { Avatar, AvatarFallback, AvatarImage } from '../../../ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
 type ChatBubbleAvatarProps = {
   message: IMessage;
