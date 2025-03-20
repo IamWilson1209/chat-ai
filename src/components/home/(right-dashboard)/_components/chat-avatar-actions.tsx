@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IMessage } from '@/app/redux/conversation/IMessage';
 import { useMutation } from 'convex/react';
 import { Ban, LogOut } from 'lucide-react';

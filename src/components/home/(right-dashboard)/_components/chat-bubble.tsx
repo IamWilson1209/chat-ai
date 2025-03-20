@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { MessageSeenSvg } from '@/libs/svgs';
 import { IMessage } from '@/app/redux/conversation/IMessage';
 import ChatBubbleAvatar from '../../(right-dashboard)/_components/chat-bubble-avatar';

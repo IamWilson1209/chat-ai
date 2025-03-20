@@ -2,9 +2,7 @@
 /*
   This entire file is copied from:
   https://github.com/ZEGOCLOUD/zego_server_assistant/blob/master/token/nodejs/server/zegoServerAssistant.ts
-
 */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createCipheriv } from 'crypto';
 
 enum ErrorCode {

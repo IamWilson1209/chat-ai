@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-/* eslint-disable prefer-const */
 import { randomID } from '@/libs/utils';
 import { useClerk } from '@clerk/nextjs';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';

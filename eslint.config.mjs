@@ -14,6 +14,9 @@ const eslintConfig = [
   {
     rules: {
       '@typescript-eslint/no-unused-vars': 'off', // 關閉未使用變數檢查
+      '@typescript-eslint/no-explicit-any': 'off', // 關閉 no-explicit-any 檢查
+      'prefer-const': 'off', // 關閉 prefer-const 檢查
+      '@typescript-eslint/no-non-null-asserted-optional-chain': 'off', // 關閉 no-non-null-asserted-optional-chain 檢查
     },
   },
 ];

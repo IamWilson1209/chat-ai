@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { formatDate } from '@/libs/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '../../../ui/avatar';
 import { MessageSeenSvg } from '@/libs/svgs';
