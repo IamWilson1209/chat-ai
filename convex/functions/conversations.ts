@@ -58,12 +58,12 @@ export const getUserConversations = query({
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) throw new Error('Unauthorized');
 
-    const identityTokenIdentifier = removeHttps(identity.tokenIdentifier)
+    // const identityTokenIdentifier = removeHttps(identity.tokenIdentifier)
 
     const authUser = await ctx.db
       .query('users')
       .withIndex('by_tokenIdentifier', (q) =>
-        q.eq('tokenIdentifier', identityTokenIdentifier)
+        q.eq('tokenIdentifier', identity.tokenIdentifier)
       )
       .unique();
 

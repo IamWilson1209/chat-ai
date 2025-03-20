@@ -42,7 +42,6 @@ export const fulfillWebhookEvent = internalAction({
 
       const { id } = evt.data
       const eventType = evt.type
-      console.log(`Received webhook with ID ${id} and event type of ${eventType}`)
 
       return evt;
     } catch (err) {

@@ -1,7 +1,7 @@
 import { v } from "convex/values";
 import { mutation, query } from "../_generated/server";
 import { api } from "../_generated/api";
-import { removeHttps } from "../../src/libs/remove-https";
+// import { removeHttps } from "../../src/libs/remove-https";
 
 export const sendTextMessage = mutation({
   args: {
@@ -15,11 +15,11 @@ export const sendTextMessage = mutation({
       throw new Error("Not authenticated");
     }
 
-    const identityTokenIdentifier = removeHttps(identity.tokenIdentifier)
+    // const identityTokenIdentifier = removeHttps(identity.tokenIdentifier)
 
     const user = await ctx.db
       .query("users")
-      .withIndex("by_tokenIdentifier", (q) => q.eq("tokenIdentifier", identityTokenIdentifier))
+      .withIndex("by_tokenIdentifier", (q) => q.eq("tokenIdentifier", identity.tokenIdentifier))
       .unique();
 
     if (!user) {
@@ -45,7 +45,6 @@ export const sendTextMessage = mutation({
       conversation: args.conversation,
       messageType: "text",
     });
-    console.log("it runs correctly1")
 
     /* 
       Check whether the content start with chatgpt, dall-e

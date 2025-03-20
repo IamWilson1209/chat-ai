@@ -50,7 +50,6 @@ export const chatgptResponse = action({
         messageType: 'text',
       });
     } catch (error) {
-      /* console.log Error */
       console.error('[ChatGPT Action] Error occurred:', {
         error,
         args,
@@ -102,7 +101,6 @@ export const dalleResponse = action({
         messageType: 'image',
       });
     } catch (error) {
-      /* console.log Error */
       console.error('[DALLE Action] Error occurred:', {
         error,
         args,

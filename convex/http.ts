@@ -39,7 +39,7 @@ http.route({
         Internal functions can be called from actions and scheduled 
         from actions and mutation using the internal object.
       */
-      const changes = await ctx.runAction(internal.clerkAction.fulfillWebhookEvent, {
+      const changes = await ctx.runAction(internal.clerk.fulfillWebhookEvent, {
         payload: payloadString,
         headers: {
           "svix-id": headerPayload.get("svix-id")!,
