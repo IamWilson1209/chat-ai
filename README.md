@@ -8,10 +8,10 @@
     <img src="public/gpt.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Shuan's Blog - Ex*</h3>
+  <h3 align="center">ai chat</h3>
 
   <p align="center">
-    An awesome public playground that can record your life and share your knowledge!
+    An OpenAI integrated chat app for you to efficiently work with a team!
     <br />
     <a href="https://github.com/IamWilson1209/chat-ai"><strong>Explore the docs »</strong></a>
     <br />
