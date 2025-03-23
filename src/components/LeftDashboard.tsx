@@ -45,28 +45,6 @@ const LeftDashboard = () => {
     }
   }, [conversations, selectedConversation, dispatch]);
 
-  /* 
-    If a user has been kicked out, using useEffect to update global state
-    to make sure that user is not allowed to seen the conversation
-  */
-  // useEffect(() => {
-  //   const conversationIds = conversations?.map(
-  //     (conversation) => conversation._id
-  //   );
-  //   /*
-  //     If kicked user has global state that opening a conversation,
-  //     make sure the global state is updated to null
-  //   */
-  //   if (
-  //     selectedConversation &&
-  //     conversationIds &&
-  //     !conversationIds.includes(selectedConversation._id)
-  //   ) {
-  //     // global state is updated to null
-  //     setSelectedConversation(null);
-  //   }
-  // }, [conversations, selectedConversation, setSelectedConversation]);
-
   /* Changed to loading skeleton */
   if (isLoading) {
     return (

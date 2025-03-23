@@ -38,17 +38,20 @@ const MediaDropdown = () => {
   const handleSendImage = async () => {
     setIsLoading(true);
     try {
-      // Step 1: Get a short-lived upload URL
+      /* 取得 convex 暫存 url */
       const postUrl = await generateUploadUrl();
-      // Step 2: POST the file to the URL
+
+      /* POST image file 給 url */
       const result = await fetch(postUrl, {
         method: 'POST',
-        headers: { 'Content-Type': selectedImage!.type },
+        headers: { 'Content-Type': selectedImage.type },
         body: selectedImage,
       });
 
+      /* 取得回傳 storage id */
       const { storageId } = await result.json();
-      // Step 3: Save the newly allocated storage id to the database
+
+      /* 儲存新的 storage id 給 Convex */
       await sendImage({
         conversation: selectedConversation!._id,
         imgId: storageId,
@@ -66,15 +69,20 @@ const MediaDropdown = () => {
   const handleSendVideo = async () => {
     setIsLoading(true);
     try {
+      /* 取得 convex 暫存 url */
       const postUrl = await generateUploadUrl();
+
+      /* POST image file 給 url */
       const result = await fetch(postUrl, {
         method: 'POST',
         headers: { 'Content-Type': selectedVideo!.type },
         body: selectedVideo,
       });
 
+      /* 取得回傳 storage id */
       const { storageId } = await result.json();
 
+      /* 儲存新的 storage id 給 Convex */
       await sendVideo({
         videoId: storageId,
         conversation: selectedConversation!._id,
@@ -157,10 +165,10 @@ export default MediaDropdown;
 
 type MediaImageDialogProps = {
   isOpen: boolean;
-  onClose: () => void;
+  onClose: () => void; // 關閉 Dialog 的回調函數
   selectedImage: File;
   isLoading: boolean;
-  handleSendImage: () => void;
+  handleSendImage: () => void; // 處理圖片上傳的函數
 };
 
 const MediaImageDialog = ({
@@ -172,6 +180,18 @@ const MediaImageDialog = ({
 }: MediaImageDialogProps) => {
   const [renderedImage, setRenderedImage] = useState<string | null>(null);
 
+  /* 
+    用來生成臨時顯示image
+    當 selectedImage 改變時，使用 JS FileReader 
+    reader.onload：
+      將圖片轉為 base64 格式並更新狀態 
+      e 是事件物件，e.target 是 FileReader 本身
+      result 是一個 base64 編碼的字串
+    reader.readAsDataURL:
+      告訴reader將檔案讀取為 Data URL 格式（base64 字串）
+    setRenderedImage:
+      將 base64 字串設置到 renderedImage 狀態，讓圖片可以在 <img> 標籤中顯示
+  */
   useEffect(() => {
     if (!selectedImage) return;
     const reader = new FileReader();
@@ -211,10 +231,10 @@ const MediaImageDialog = ({
 
 type MediaVideoDialogProps = {
   isOpen: boolean;
-  onClose: () => void;
+  onClose: () => void; // 關閉對話框的回調函數
   selectedVideo: File;
   isLoading: boolean;
-  handleSendVideo: () => void;
+  handleSendVideo: () => void; // 處理影片上傳的函數
 };
 
 const MediaVideoDialog = ({
@@ -224,6 +244,14 @@ const MediaVideoDialog = ({
   isLoading,
   handleSendVideo,
 }: MediaVideoDialogProps) => {
+  /*
+    用來生成臨時顯示video
+    URL.createObjectURL: 
+      瀏覽器的原生 API，用來從檔案或二進位資料生成一個臨時的 URL 
+    Blob（Binary Large Object）是表示二進位資料的物件
+      將 selectedVideo（一個 File 物件）放入陣列，作為 Blob 的內容
+      { type: 'video/mp4' }：指定 MIME 類型，表示這是一個 MP4 影片
+  */
   const renderedVideo = URL.createObjectURL(
     new Blob([selectedVideo], { type: 'video/mp4' })
   );
@@ -238,6 +266,13 @@ const MediaVideoDialog = ({
       <DialogContent>
         <DialogDescription>Video</DialogDescription>
         <div className="w-full">
+          {/* 
+          <ReactPlayer>：
+            用於播放影片。
+              url={renderedVideo}：使用生成的臨時 URL 播放影片。
+              controls：顯示播放控制條（播放、暫停、音量等）
+              width="100%"：影片寬度填滿容器
+          */}
           {renderedVideo && (
             <ReactPlayer url={renderedVideo} controls width="100%" />
           )}

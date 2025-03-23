@@ -58,7 +58,7 @@ const GroupMembersDialog = ({
                   <div className="w-full ">
                     <div className="flex items-center gap-2">
                       <h3 className="text-md font-medium">
-                        {/* johndoe@gmail.com */}
+                        {/* john@gmail.com */}
                         {user.name || user.email.split('@')[0]}
                       </h3>
                       {/* Group creater will have a logo */}

@@ -8,6 +8,7 @@ type DateIndicatorProps = {
 const DateIndicator = ({ message, previousMessage }: DateIndicatorProps) => {
   return (
     <>
+      {/* 無前一個message或同一天: null；有前一個message且不同天: 取得新一天的時間 */}
       {!previousMessage ||
       !isSameDay(previousMessage._creationTime, message._creationTime) ? (
         <div className="flex justify-center">

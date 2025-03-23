@@ -54,6 +54,13 @@ const UserListDialog = () => {
           isGroup: false,
         });
       } else {
+        /* 
+          如果是群組聊天 
+            1. Convex 產生暫時群組圖片url
+            2. 將圖片 POST 給 url
+            3. 回傳此 urlId: storageUrl
+            4. 將此url儲存到 Convex
+        */
         const postUrl = await generateUploadUrl();
 
         const result = await fetch(postUrl, {
@@ -74,8 +81,8 @@ const UserListDialog = () => {
       }
 
       /* 
-      Make sure next time user click the create group button
-      won't get previous state
+        關閉對話框: dialogCloseRef.current?.click()
+        清空選擇的用戶、群組名稱和圖片
       */
       dialogCloseRef.current?.click();
       setSelectedUsers([]);
@@ -86,6 +93,7 @@ const UserListDialog = () => {
         ? groupName
         : users?.find((user) => user._id === selectedUsers[0])?.name;
 
+      /* 將新對話設為 Redux 中的當前選中對話 */
       dispatch(
         setSelectedConversation({
           _id: conversationId,
@@ -106,11 +114,12 @@ const UserListDialog = () => {
     }
   };
 
+  /* 預覽圖片 */
   useEffect(() => {
     if (!selectedImage) return setRenderedImage('');
-    const reader = new FileReader();
-    reader.onload = (e) => setRenderedImage(e.target?.result as string);
-    reader.readAsDataURL(selectedImage);
+    const reader = new FileReader(); // JS
+    reader.onload = (e) => setRenderedImage(e.target?.result as string); // 轉base64
+    reader.readAsDataURL(selectedImage); // 將檔案讀取為 Data URL 格式
   }, [selectedImage]);
 
   return (

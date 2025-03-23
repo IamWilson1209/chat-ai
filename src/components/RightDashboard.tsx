@@ -13,6 +13,11 @@ import Skeleton from './Skeleton';
 
 const RightDashboard = () => {
   const dispatch = useDispatch();
+  /* 
+    Initial state: 設定 useSelector 
+    從 Redux store 選取當前選擇的對話，判斷此 conversation 是否被選中
+    根據 conversation._id 檢查當前 conversation 是否為選中狀態
+  */
   const selectedConversation = useSelector(
     (state: RootState) => state.conversation.selectedConversation
   );
@@ -67,7 +72,7 @@ const RightDashboard = () => {
             <a href="/video-call" target="_blank">
               <Video size={23} />
             </a>
-            {/* make sure click the X button, chatbox will close automatically */}
+            {/* 更新 Redux store 中的 selectedConversation 為當前點擊的 conversation 物件 */}
             <X
               size={16}
               className="cursor-pointer"
@@ -76,7 +81,7 @@ const RightDashboard = () => {
           </div>
         </div>
       </div>
-      {/* CHAT MESSAGES */}
+      {/* 更新Redux需要變換的component */}
       <MessageContainer />
 
       {/* INPUT */}

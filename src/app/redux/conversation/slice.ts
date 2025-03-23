@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Conversation } from '../conversation/conversation-type'; // 根據你的實際路徑調整
+import { Conversation } from '../conversation/conversation-type';
 
 export interface ConversationState {
   selectedConversation: Conversation | null;

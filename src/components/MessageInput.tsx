@@ -23,12 +23,12 @@ const MessageInput = () => {
   const sendTextMsg = useMutation(api.functions.messages.sendTextMessage);
 
   const handleSendTextMsg = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault(); // 阻止表單提交的預設行為（頁面刷新）
     try {
       await sendTextMsg({
         content: msgText,
-        conversation: selectedConversation!._id,
-        sender: me!._id,
+        conversation: selectedConversation._id,
+        sender: me._id,
       });
       setMsgText('');
     } catch (err: any) {
@@ -40,13 +40,13 @@ const MessageInput = () => {
   return (
     <div className="bg-gray-primary p-2 flex gap-4 items-center">
       <div className="relative flex gap-2 ml-2">
-        {/* EMOJI PICKER WILL GO HERE */}
+        {/* EMOJI PICKER 實作 */}
         <div ref={ref} onClick={() => setIsComponentVisible(true)}>
           {isComponentVisible && (
             <EmojiPicker
               theme={Theme.DARK}
               onEmojiClick={(emojiObject) => {
-                setMsgText((prev) => prev + emojiObject.emoji);
+                setMsgText((prev) => prev + emojiObject.emoji); // 在原本 state 後面加上 emoji
               }}
               style={{
                 position: 'absolute',

@@ -68,30 +68,28 @@ export const getUserConversations = query({
 
     if (!authUser) throw new Error('User not found');
 
-    /* 
-      fetch all conversations related to this user (including group) 
-    */
+    /* Fetch all conversations related to this user (including group) */
     const conversations = await ctx.db.query('conversations').collect();
 
     /* 
-      filter all conversations where current user is a participant and 
+      Filter all conversations where current user is a participant and 
       return them with additional details (user details, last message)
     */
     const userConversations = conversations.filter((conversation) => {
       return conversation.participants.includes(authUser._id);
     });
 
+    /* Nextjs: 並行查詢更快，找出所有conversations */
     const conversationsWithDetails = await Promise.all(
       userConversations.map(async (conversation) => {
         let otherUserDetails = {};
 
-        /* 
-          If not a group chat, fetch the first one user's id
-        */
+        /* If not a group chat, fetch the first one other user's id */
         if (!conversation.isGroup) {
           const otherUserId = conversation.participants.find(
             (id) => id !== authUser._id
           );
+          /* 根據此 id 補上其他使用者資訊 */
           const otherUserProfile = await ctx.db
             .query('users')
             .filter((q) => q.eq(q.field('_id'), otherUserId))
@@ -100,6 +98,7 @@ export const getUserConversations = query({
           otherUserDetails = otherUserProfile[0];
         }
 
+        /* 找出最後一則訊息 */
         const lastMessage = await ctx.db
           .query('messages')
           .filter((q) => q.eq(q.field('conversation'), conversation._id))
@@ -107,8 +106,15 @@ export const getUserConversations = query({
           .take(1);
 
         /* 
-          return should be in this order, 
-          otherwise conversion _id will overwrite user _id 
+          return should be in this order: 
+          {
+            _id: "conversation456", // 反過來是userid會覆蓋上去，但是這個api不需要
+            name: "John",
+            image: "/john.png",
+            participants: ["user123", "user789"],
+            isGroup: false,
+            lastMessage: { _id: "message789", content: "Hi!", conversation: "conversation456" }
+          }
         */
         return {
           ...otherUserDetails,
@@ -138,6 +144,7 @@ export const deleteUserFromConversation = mutation({
 
     if (!conversation) throw new Error('Conversation not found');
 
+    /* patch更新user，保留其他id，移除此userId */
     await ctx.db.patch(args.conversationId, {
       participants: conversation.participants.filter(
         (id) => id !== args.userId
@@ -146,6 +153,7 @@ export const deleteUserFromConversation = mutation({
   },
 });
 
+/* Convex 提供的方法，用來生成一個臨時上傳 URL */
 export const generateUploadUrl = mutation(async (ctx) => {
   return await ctx.storage.generateUploadUrl();
 });

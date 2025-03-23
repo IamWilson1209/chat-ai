@@ -9,16 +9,22 @@ import { RootState } from '@/app/redux/stores';
 import { setSelectedConversation } from '@/app/redux/conversation/slice';
 
 const Conversation = ({ conversation }: { conversation: any }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); /*  */
   const conversationImage = conversation.groupImage || conversation.image;
   const conversationName = conversation.groupName || conversation.name;
   const lastMessage = conversation.lastMessage;
   const lastMessageType = lastMessage?.messageType;
   const me = useQuery(api.functions.users.getMe);
 
+  /* 
+    Initial state: 設定 useSelector 
+    從 Redux store 選取當前選擇的對話，判斷此 conversation 是否被選中
+    根據 conversation._id 檢查當前 conversation 是否為選中狀態
+  */
   const selectedConversation = useSelector(
     (state: RootState) => state.conversation.selectedConversation
   );
+  /* 用 activeBgClass 更新 tailwind */
   const activeBgClass = selectedConversation?._id === conversation._id;
 
   return (
@@ -27,6 +33,10 @@ const Conversation = ({ conversation }: { conversation: any }) => {
         className={`flex gap-2 items-center p-3 hover:bg-chat-hover cursor-pointer
 					${activeBgClass ? 'bg-gray-tertiary' : ''}
 				`}
+        /*
+          更新 Redux store 中的 
+          selectedConversation 為當前點擊的 conversation 物件
+        */
         onClick={() => dispatch(setSelectedConversation(conversation))}
       >
         <Avatar className="border border-gray-900 overflow-visible relative">
