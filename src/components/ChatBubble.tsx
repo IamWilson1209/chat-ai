@@ -12,8 +12,8 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/app/redux/stores';
 
 /* 
-Passing previous message to check the date time, 
-so it can build timestamp functionality 
+  Passing previous message to check the date time, 
+  so it can build timestamp functionality 
 */
 type ChatBubbleProps = {
   message: IMessage;

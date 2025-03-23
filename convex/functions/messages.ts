@@ -100,6 +100,7 @@ export const getMessages = query({
       .withIndex("by_conversation", (q) => q.eq("conversation", args.conversation))
       .collect();
 
+    // 用來記錄有哪些使用者資訊已經被記錄過，不用再發api call
     const userProfileCache = new Map();
 
     const messagesWithSender = await Promise.all(
@@ -110,11 +111,11 @@ export const getMessages = query({
           return { ...message, sender: { name: "ChatGPT", image } };
         }
         let sender;
-        // Check if sender profile is in cache
+        // 如果這條消息有找到sender，不發 api call 給 convex
         if (userProfileCache.has(message.sender)) {
           sender = userProfileCache.get(message.sender);
         } else {
-          // Fetch sender profile from the database
+          // 如果快取裡面找不到，fetch sender profile from convex，獲取所有這個sender得資訊
           sender = await ctx.db
             .query("users")
             .filter((q) => q.eq(q.field("_id"), message.sender))
